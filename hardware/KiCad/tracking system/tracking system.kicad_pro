@@ -146,24 +146,24 @@
       },
       "rules": {
         "max_error": 0.005,
-        "min_clearance": 0.0,
-        "min_connection": 0.0,
-        "min_copper_edge_clearance": 0.5,
+        "min_clearance": 0.127,
+        "min_connection": 0.127,
+        "min_copper_edge_clearance": 0.3,
         "min_groove_width": 0.0,
         "min_hole_clearance": 0.25,
-        "min_hole_to_hole": 0.25,
+        "min_hole_to_hole": 0.5,
         "min_microvia_diameter": 0.2,
         "min_microvia_drill": 0.1,
         "min_resolved_spokes": 2,
         "min_silk_clearance": 0.0,
         "min_text_height": 0.8,
         "min_text_thickness": 0.08,
-        "min_through_hole_diameter": 0.3,
-        "min_track_width": 0.2,
-        "min_via_annular_width": 0.1,
-        "min_via_diameter": 0.5,
+        "min_through_hole_diameter": 0.127,
+        "min_track_width": 0.127,
+        "min_via_annular_width": 0.01,
+        "min_via_diameter": 0.01,
         "solder_mask_to_copper_clearance": 0.0,
-        "use_height_for_length_calcs": true
+        "use_height_for_length_calcs": false
       },
       "teardrop_options": [
         {
@@ -549,7 +549,7 @@
     "last_paths": {
       "idf": "",
       "netlist": "",
-      "plot": "",
+      "plot": "gerbers/",
       "specctra_dsn": "",
       "vrml": ""
     },
@@ -703,7 +703,7 @@
         "uuid": "6a8dfc60-923b-44c3-8df9-932caad8a46b"
       }
     ],
-    "used_designators": "J1-8,U1-4,FB1,C1-19,SW1-2,Y1-2,#PWR1-33,D1,H1-4,BT1,R1-9,#FLG1-3",
+    "used_designators": "J1-8,U1-4,FB1,C1-19,SW1-2,Y1-2,#PWR1-33,D1,R1-9,BT1,H1-4,#FLG1-3",
     "variants": []
   },
   "sheets": [
