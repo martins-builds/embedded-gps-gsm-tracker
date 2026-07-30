@@ -9466,7 +9466,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10p"
+		(property "Value" "12.5p"
 			(at 27.94 40.6399 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10216,7 +10216,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Crystal:Crystal_SMD_2016-4Pin_2.0x1.6mm"
+		(property "Footprint" "Crystal:Crystal_SMD_3215-2Pin_3.2x1.5mm"
 			(at 34.29 33.02 0)
 			(hide yes)
 			(show_name no)
@@ -10324,7 +10324,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Crystal:Crystal_SMD_2016-4Pin_2.0x1.6mm"
+		(property "Footprint" "Crystal:Crystal_SMD_3225-4Pin_3.2x2.5mm"
 			(at 82.55 33.02 0)
 			(hide yes)
 			(show_name no)
@@ -11055,7 +11055,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10p"
+		(property "Value" "12.5p"
 			(at 48.26 40.6399 0)
 			(show_name no)
 			(do_not_autoplace no)

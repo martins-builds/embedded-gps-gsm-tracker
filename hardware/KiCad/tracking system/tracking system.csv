@@ -1,5 +1,5 @@
 "Reference","Qty","Value","Exclude from BOM","Exclude from Board","Footprint"
-"Y2","1","8MHz","","","Crystal:Crystal_SMD_2016-4Pin_2.0x1.6mm"
+"Y2","1","8MHz","","","Crystal:Crystal_SMD_3225-4Pin_3.2x2.5mm"
 "Y1","1","32kHz","","","Crystal:Crystal_SMD_2016-4Pin_2.0x1.6mm"
 "U3","1","ME6211C33M5","","","Package_TO_SOT_SMD:SOT-23-5"
 "U2","1","TP4056-42-ESOP8","","","Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.29x3mm"
