@@ -3,9 +3,15 @@
 
 #include <stdint.h>
 
-#define PERIPH_BASE    0x40000000
-#define GPIOA_BASE     0x48000000 
+//BASE ADDRESSES
+#define PERIPH_BASE    0x40000000 
 #define RCC_BASE       0x40021000
+#define GPIOA_BASE     0x48000000
+#define GPIOB_BASE     0x48000400
+#define GPIOC_BASE     0x48000800
+#define GPIOH_BASE     0x48001C00
+
+//MEMORY MAPS
 typedef struct 
 {
     volatile uint32_t MODER;
@@ -64,5 +70,13 @@ typedef struct
     volatile uint32_t CRRCR;
     volatile uint32_t CCIPR2;
 } RCC_TypeDef;
+
+//POINTER MACROS
+#define GPIOA  ((GPIO_TypeDef *) GPIOA_BASE)
+#define GPIOB  ((GPIO_TypeDef *) GPIOB_BASE)
+#define GPIOC  ((GPIO_TypeDef *) GPIOC_BASE)
+#define GPIOH  ((GPIO_TypeDef *) GPIOH_BASE)
+
+#define RCC    ((RCC_TypeDef *) RCC_BASE)
 
 #endif
