@@ -5,6 +5,7 @@
 
 #define PERIPH_BASE    0x40000000
 #define GPIOA_BASE     0x48000000 
+#define RCC_BASE       0x40021000
 typedef struct 
 {
     volatile uint32_t MODER;
@@ -19,7 +20,7 @@ typedef struct
     volatile uint32_t AFRH;
     volatile uint32_t BRR;
     volatile uint32_t ASCR;
-}GPIO_TypeDef;
+} GPIO_TypeDef;
 
 typedef struct 
 {
@@ -51,15 +52,17 @@ typedef struct
     volatile uint32_t RESERVED4;
     volatile uint32_t AHB1SMENR;
     volatile uint32_t AHB2SMENR;
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-}RCC_TypeDef;
+    volatile uint32_t AHB3SMENR;
+    volatile uint32_t RESERVED5;
+    volatile uint32_t APB1SMENR1;
+    volatile uint32_t APB1SMENR2;
+    volatile uint32_t APB2SMENR;
+    volatile uint32_t CCIPR;
+    volatile uint32_t RESERVED6;
+    volatile uint32_t BDCR;
+    volatile uint32_t CSR;
+    volatile uint32_t CRRCR;
+    volatile uint32_t CCIPR2;
+} RCC_TypeDef;
 
 #endif
