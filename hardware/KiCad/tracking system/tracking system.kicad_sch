@@ -9645,7 +9645,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "12.5p"
+		(property "Value" "12p"
 			(at 27.94 40.6399 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11126,7 +11126,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "12.5p"
+		(property "Value" "12p"
 			(at 48.26 40.6399 0)
 			(show_name no)
 			(do_not_autoplace no)

@@ -4950,7 +4950,7 @@
 				)
 			)
 		)
-		(property "Value" "12.5p"
+		(property "Value" "12p"
 			(at 0 1.16 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -5246,7 +5246,7 @@
 				)
 			)
 		)
-		(property "Value" "12.5p"
+		(property "Value" "12p"
 			(at 0 1.16 90)
 			(layer "F.Fab")
 			(hide yes)
