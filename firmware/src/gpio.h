@@ -3,6 +3,6 @@
 
 #include "stm32l476re.h"
 
-void gpio_init();
+void gpio_init(void);
 
 #endif
