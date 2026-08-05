@@ -71,6 +71,12 @@ typedef struct
     volatile uint32_t CCIPR2;
 } RCC_TypeDef;
 
+typedef struct
+{
+    
+} SYSCFG_Typedef;
+
+
 //POINTER MACROS
 #define GPIOA  ((GPIO_TypeDef *) GPIOA_BASE)
 #define GPIOB  ((GPIO_TypeDef *) GPIOB_BASE)
