@@ -73,7 +73,17 @@ typedef struct
 
 typedef struct
 {
-    
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
 } SYSCFG_Typedef;
 
 
