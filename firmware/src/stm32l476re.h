@@ -73,19 +73,23 @@ typedef struct
 
 typedef struct
 {
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
+    volatile uint32_t MEMRMP;
+    volatile uint32_t CFGR1;
+    volatile uint32_t EXTICR1;
+    volatile uint32_t EXTICR2;
+    volatile uint32_t EXTICR3;
+    volatile uint32_t EXTICR4;
+    volatile uint32_t SCSR;
+    volatile uint32_t CFGR2;
+    volatile uint32_t SWPR;
+    volatile uint32_t SKR;
+    volatile uint32_t SWPR2;
 } SYSCFG_Typedef;
 
+typedef struct
+{
+    
+} EXTI_TypeDef;
 
 //POINTER MACROS
 #define GPIOA  ((GPIO_TypeDef *) GPIOA_BASE)
