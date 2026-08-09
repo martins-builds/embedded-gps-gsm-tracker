@@ -3,4 +3,9 @@
 
 #include <stdint.h>
 
+
+typedef struct{
+
+
+} NVIC_Typedef;
 #endif
