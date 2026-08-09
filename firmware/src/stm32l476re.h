@@ -112,4 +112,7 @@ typedef struct
 
 #define RCC    ((RCC_TypeDef *) RCC_BASE)
 
+#define SYSCFG ((SYSCFG_TypeDef*) SYSCFG_BASE)
+#define EXTI   ((EXTI_TypeDef*) EXTI_BASE)
+
 #endif
