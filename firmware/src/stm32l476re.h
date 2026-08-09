@@ -10,6 +10,8 @@
 #define GPIOB_BASE     0x48000400
 #define GPIOC_BASE     0x48000800
 #define GPIOH_BASE     0x48001C00
+#define SYSCFG_BASE    0x40010000
+#define EXTI_BASE      0x40010400
 
 //MEMORY MAPS
 typedef struct 
@@ -88,7 +90,17 @@ typedef struct
 
 typedef struct
 {
-    
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
 } EXTI_TypeDef;
 
 //POINTER MACROS
