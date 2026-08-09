@@ -90,17 +90,18 @@ typedef struct
 
 typedef struct
 {
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
+    volatile uint32_t IMR1;
+    volatile uint32_t EMR1;
+    volatile uint32_t RTSR1;
+    volatile uint32_t FTSR1;
+    volatile uint32_t SWIER1;
+    volatile uint32_t PR1;
+    volatile uint32_t IMR2;
+    volatile uint32_t EMR2;
+    volatile uint32_t RTSR2;
+    volatile uint32_t FTSR2;
+    volatile uint32_t SWIER2;
+    volatile uint32_t PR2;
 } EXTI_TypeDef;
 
 //POINTER MACROS
