@@ -9,6 +9,8 @@ C_SOURCES = src/main.c \
             src/gps_task.c \
             src/gsm_task.c \
             src/display_task.c \
+            src/gpio.c \
+            src/clock.c \
             $(FREERTOS)/tasks.c \
             $(FREERTOS)/queue.c \
             $(FREERTOS)/list.c \

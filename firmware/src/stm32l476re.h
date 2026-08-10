@@ -86,7 +86,7 @@ typedef struct
     volatile uint32_t SWPR;
     volatile uint32_t SKR;
     volatile uint32_t SWPR2;
-} SYSCFG_Typedef;
+} SYSCFG_TypeDef;
 
 typedef struct
 {
