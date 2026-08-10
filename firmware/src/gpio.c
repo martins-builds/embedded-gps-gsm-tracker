@@ -42,7 +42,8 @@ void button_interrupt_init(void) {
     EXTI->IMR1 |= (1 << 3);
 
     //NVIC
-    
+    NVIC->ISER[0] |= (1 << 8);   // enable IRQ8 = EXTI2
+    NVIC->ISER[0] |= (1 << 9);   // enable IRQ9 = EXTI3
 }
 
 void power_btn_pressed(void) {
