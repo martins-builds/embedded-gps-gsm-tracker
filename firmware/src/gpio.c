@@ -47,11 +47,13 @@ void button_interrupt_init(void) {
 }
 
 void power_btn_pressed(void) {
-     RCC->AHB2ENR |= (1 << 2); //gpioc enabled
+    //debounce logic fix
+    //wake up screen
 }
 
 void distress_btn_pressed(void) {
-    RCC->AHB2ENR |= (1 << 2); //gpioc enabled
+    //debounce logic fix
+    //send sos via uart from gps, gsm and software
 }
 
 // interrupt handlers

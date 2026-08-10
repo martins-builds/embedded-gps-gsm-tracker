@@ -4,6 +4,7 @@
 #include "stm32l476re.h"
 
 void gpio_init(void);
+void button_interrupt_init(void);
 
 void power_btn_pressed(void);
 void distress_btn_pressed(void);
