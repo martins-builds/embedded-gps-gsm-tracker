@@ -1,4 +1,5 @@
 #include "gpio.h"
+#include "core_cm4.h"
 
 void gpio_init(void){
     RCC->AHB2ENR |= (1 << 2); //gpioc enabled
@@ -40,7 +41,8 @@ void button_interrupt_init(void) {
     EXTI->IMR1 |= (1 << 2);
     EXTI->IMR1 |= (1 << 3);
 
-    // NVIC enable (still needed - separate register, not covered yet)
+    //NVIC
+    
 }
 
 void power_btn_pressed(void) {
