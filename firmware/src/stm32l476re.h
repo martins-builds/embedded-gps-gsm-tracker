@@ -12,6 +12,10 @@
 #define GPIOH_BASE     0x48001C00
 #define SYSCFG_BASE    0x40010000
 #define EXTI_BASE      0x40010400
+#define I2C1_BASE      0x40005400
+#define USART1_BASE    0x40013800
+#define USART3_BASE    0x40004800
+#define PWR_BASE       0x40007000
 
 //MEMORY MAPS
 typedef struct 
@@ -154,6 +158,22 @@ typedef struct
     volatile uint32_t TDR;
 } USART_TypeDef; //what about LPUART
 
+typedef struct
+{
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+} PWR_TypeDef;
+
 //POINTER MACROS
 #define GPIOA  ((GPIO_TypeDef *) GPIOA_BASE)
 #define GPIOB  ((GPIO_TypeDef *) GPIOB_BASE)
@@ -165,6 +185,8 @@ typedef struct
 #define SYSCFG ((SYSCFG_TypeDef*) SYSCFG_BASE)
 #define EXTI   ((EXTI_TypeDef*) EXTI_BASE)
 
-#define I2C    ((I2C_TypeDef*) )
+#define I2C    ((I2C_TypeDef*) I2C1_BASE)
+#define USART  ((USART_TypeDef*) USART1_BASE)
+#define USART  ((USART_TypeDef*) USART3_BASE)
 
 #endif
