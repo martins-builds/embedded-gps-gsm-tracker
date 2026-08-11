@@ -104,6 +104,26 @@ typedef struct
     volatile uint32_t PR2;
 } EXTI_TypeDef;
 
+typedef struct
+{
+    volatile uint32_t ACR;
+    volatile uint32_t PDKEYR;
+    volatile uint32_t KEYR;
+    volatile uint32_t OPTKEYR;
+    volatile uint32_t SR;
+    volatile uint32_t CR;
+    volatile uint32_t ECCR;
+    volatile uint32_t OPTR;
+    volatile uint32_t PCROP1SR;
+    volatile uint32_t PCROP1ER;
+    volatile uint32_t WRP1AR;
+    volatile uint32_t WRP1BR;
+    volatile uint32_t PCROP2SR;
+    volatile uint32_t PCROP2ER;
+    volatile uint32_t WRP2AR;
+    volatile uint32_t WRP2BR;
+} FLASH_TypeDef;
+
 //POINTER MACROS
 #define GPIOA  ((GPIO_TypeDef *) GPIOA_BASE)
 #define GPIOB  ((GPIO_TypeDef *) GPIOB_BASE)
