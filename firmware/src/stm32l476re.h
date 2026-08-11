@@ -139,6 +139,21 @@ typedef struct
     volatile uint32_t TXDR;
 } I2C_TypeDef;
 
+typedef struct 
+{
+    volatile uint32_t CR1;
+    volatile uint32_t CR2;
+    volatile uint32_t CR3;
+    volatile uint32_t BRR;
+    volatile uint32_t GTPR;
+    volatile uint32_t RTOR;
+    volatile uint32_t RQR;
+    volatile uint32_t ISR;
+    volatile uint32_t ICR;
+    volatile uint32_t RDR;
+    volatile uint32_t TDR;
+} USART_TypeDef; //what about LPUART
+
 //POINTER MACROS
 #define GPIOA  ((GPIO_TypeDef *) GPIOA_BASE)
 #define GPIOB  ((GPIO_TypeDef *) GPIOB_BASE)
@@ -149,5 +164,7 @@ typedef struct
 
 #define SYSCFG ((SYSCFG_TypeDef*) SYSCFG_BASE)
 #define EXTI   ((EXTI_TypeDef*) EXTI_BASE)
+
+#define I2C    ((I2C_TypeDef*) )
 
 #endif
