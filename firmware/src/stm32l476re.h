@@ -12,6 +12,7 @@
 #define GPIOH_BASE     0x48001C00
 #define SYSCFG_BASE    0x40010000
 #define EXTI_BASE      0x40010400
+#define FLASH_BASE     0x40022000
 #define I2C1_BASE      0x40005400
 #define USART1_BASE    0x40013800
 #define USART3_BASE    0x40004800
@@ -197,6 +198,7 @@ typedef struct
 
 #define SYSCFG ((SYSCFG_TypeDef*) SYSCFG_BASE)
 #define EXTI   ((EXTI_TypeDef*) EXTI_BASE)
+#define FLASH  ((FLASH_TypeDef*) FLASH_BASE)
 
 #define I2C    ((I2C_TypeDef*) I2C1_BASE)
 #define USART  ((USART_TypeDef*) USART1_BASE)
