@@ -160,18 +160,31 @@ typedef struct
 
 typedef struct
 {
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
+    volatile uint32_t CR1;
+    volatile uint32_t CR2;
+    volatile uint32_t CR3;
+    volatile uint32_t CR4;
+    volatile uint32_t SR1;
+    volatile uint32_t SR2;
+    volatile uint32_t SCR;
+    volatile uint32_t PUCRA;
+    volatile uint32_t PDCRA;
+    volatile uint32_t PUCRB;
+    volatile uint32_t PDCRB;
+    volatile uint32_t PUCRC;
+    volatile uint32_t PDCRC;
+    volatile uint32_t PUCRD;
+    volatile uint32_t PDCRD;
+    volatile uint32_t PUCRE;
+    volatile uint32_t PDCRE;
+    volatile uint32_t PUCRF;
+    volatile uint32_t PDCRF;
+    volatile uint32_t PUCRG;
+    volatile uint32_t PDCRG;
+    volatile uint32_t PUCRH;
+    volatile uint32_t PDCRH;
+    volatile uint32_t PUCRI;
+    volatile uint32_t PDCRI;
 } PWR_TypeDef;
 
 //POINTER MACROS
@@ -188,5 +201,5 @@ typedef struct
 #define I2C    ((I2C_TypeDef*) I2C1_BASE)
 #define USART  ((USART_TypeDef*) USART1_BASE)
 #define USART  ((USART_TypeDef*) USART3_BASE)
-
+#define PWR    ((PWR_TypeDef*) PWR_BASE)
 #endif
