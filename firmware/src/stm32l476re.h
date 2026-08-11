@@ -118,11 +118,13 @@ typedef struct
     volatile uint32_t SR;
     volatile uint32_t CR;
     volatile uint32_t ECCR;
+    volatile uint32_t RESERVED0;
     volatile uint32_t OPTR;
     volatile uint32_t PCROP1SR;
     volatile uint32_t PCROP1ER;
     volatile uint32_t WRP1AR;
     volatile uint32_t WRP1BR;
+    volatile uint32_t RESERVED1[4];
     volatile uint32_t PCROP2SR;
     volatile uint32_t PCROP2ER;
     volatile uint32_t WRP2AR;
@@ -168,6 +170,7 @@ typedef struct
     volatile uint32_t SR1;
     volatile uint32_t SR2;
     volatile uint32_t SCR;
+    volatile uint32_t RESERVED0;
     volatile uint32_t PUCRA;
     volatile uint32_t PDCRA;
     volatile uint32_t PUCRB;
@@ -204,4 +207,5 @@ typedef struct
 #define USART  ((USART_TypeDef*) USART1_BASE)
 #define USART  ((USART_TypeDef*) USART3_BASE)
 #define PWR    ((PWR_TypeDef*) PWR_BASE)
+
 #endif
