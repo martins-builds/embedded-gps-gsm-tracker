@@ -5,7 +5,6 @@ void clock_init(void){
     while(!(RCC->CR & (1 << 17)));
     FLASH->ACR |= (4 << 0);
     RCC->PLLCFGR = (3 << 0) | (0 << 4) | (20 << 8) | (0 << 25) | (1 << 24); 
-    // set source as 3, M as 1, N as 20 and R as 2. Then R enable
     RCC->CR |= (1 << 24);
     while(!(RCC->CR & (1 << 25)));
     RCC->CFGR |= (3 << 0);
