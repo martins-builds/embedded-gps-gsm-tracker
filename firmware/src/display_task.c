@@ -11,5 +11,6 @@ void i2c_init(void){
     RCC->APB1ENR1 |= (1 << 21); // enable 12c1 for display
 
     I2C->CR1 |= (1 << 0); //periferal enable
-    
+
+    // TIMINGR and SSD1306 init sequence
 }
