@@ -79,3 +79,8 @@ void OLED_DrawPixel(int16_t x, int16_t y, uint8_t color) {
         framebuffer[index] &= ~(1 << (y % 8)); // Force bit LOW
     }
 }
+void i2c_write(uint8_t dev_addr, uint8_t *data, uint16_t len){
+    I2C1->CR2 |= (0x3C << 0);
+    //loop to txdr while warching flag
+    I2C1->CR2 |= (1 << 14);
+}
