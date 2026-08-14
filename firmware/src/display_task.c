@@ -62,8 +62,8 @@ void i2c_init(void){
         
         0xAF  // 16. Turn Display ON
     };
-
-    void OLED_DrawPixel(int16_t x, int16_t y, uint8_t color) {
+}
+void OLED_DrawPixel(int16_t x, int16_t y, uint8_t color) {
     if (x < 0 || x >= 128 || y < 0 || y >= 64) {
         return; // Boundary check to prevent writing outside the array
     }
@@ -78,5 +78,4 @@ void i2c_init(void){
     } else {
         framebuffer[index] &= ~(1 << (y % 8)); // Force bit LOW
     }
-}
 }
