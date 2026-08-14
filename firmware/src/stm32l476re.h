@@ -203,7 +203,7 @@ typedef struct
 #define EXTI   ((EXTI_TypeDef*) EXTI_BASE)
 #define FLASH  ((FLASH_TypeDef*) FLASH_BASE)
 
-#define I2C    ((I2C_TypeDef*) I2C1_BASE)
+#define I2C1   ((I2C_TypeDef*) I2C1_BASE)
 #define USART1 ((USART_TypeDef*) USART1_BASE)
 #define USART3 ((USART_TypeDef*) USART3_BASE)
 #define PWR    ((PWR_TypeDef*) PWR_BASE)
