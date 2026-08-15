@@ -95,3 +95,9 @@ void i2c_write(uint8_t dev_addr, uint8_t *data, uint16_t len){
     while (!(I2C1->ISR & (1 << 5)));  // wait for STOPF (stop condition sent)
     I2C1->ICR |= (1 << 5);            // clear STOPF flag
 }
+void ssd1306_init(void){
+    for (uint16_t i = 0; i < sizeof(SSD1306_Init_Sequence); i++) {
+        uint8_t cmd_buf[2] = {0x00, SSD1306_Init_Sequence[i]};
+        i2c_write(0x3C, cmd_buf, 2);
+    }
+}
