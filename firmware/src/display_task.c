@@ -101,3 +101,15 @@ void ssd1306_init(void){
         i2c_write(0x3C, cmd_buf, 2);
     }
 }
+void ssd1306_update_display(void){
+    uint8_t set_col[3] = {0x00, 0x21, 0x00};   // 0x21 = set column address, start=0
+    uint8_t col_end[1] = {0x7F};                // end column = 127
+    uint8_t set_page[3] = {0x00, 0x22, 0x00};   // 0x22 = set page address, start=0
+    uint8_t page_end[1] = {0x07};               // end page = 7
+    
+    uint8_t data_buf[1025];
+    data_buf[0] = 0x40;                       // control byte: "this is display data"
+    memcpy(&data_buf[1], framebuffer, 1024);  // copy the whole framebuffer after it
+
+    i2c_write(0x3C, data_buf, 1025);
+}
