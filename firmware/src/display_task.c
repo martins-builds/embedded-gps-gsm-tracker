@@ -79,7 +79,19 @@ void OLED_DrawPixel(int16_t x, int16_t y, uint8_t color) {
     }
 }
 void i2c_write(uint8_t dev_addr, uint8_t *data, uint16_t len){
-    I2C1->CR2 |= (0x3C << 0);
-    //loop to txdr while warching flag
-    I2C1->CR2 |= (1 << 25); //autoend
+    // Configure CR2: address, byte count, write direction, autoend
+    I2C1->CR2 = (dev_addr << 1)      // SADD[7:1] = device address
+              | (len << 16)          // NBYTES = number of bytes to send
+              | (1 << 25);           // AUTOEND = stop automatically after NBYTES
+              // RD_WRN left at 0 = write
+
+    I2C1->CR2 |= (1 << 13);          // START - begin the transaction
+
+    for (uint16_t i = 0; i < len; i++) {
+        while (!(I2C1->ISR & (1 << 1)));  // wait for TXIS (ready for next byte)
+        I2C1->TXDR = data[i];
+    }
+
+    while (!(I2C1->ISR & (1 << 5)));  // wait for STOPF (stop condition sent)
+    I2C1->ICR |= (1 << 5);            // clear STOPF flag
 }
