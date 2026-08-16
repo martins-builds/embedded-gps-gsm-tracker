@@ -1,5 +1,6 @@
 #include "gps_task.h"
 #include <string.h>
+#include <stdlib.h>
 
 void gps_parse_gprmc(const char *sentence, GPS_Data_t *result){
     char sentence_copy[100];
@@ -13,8 +14,33 @@ void gps_parse_gprmc(const char *sentence, GPS_Data_t *result){
         i++;
         token = strtok(NULL, ",");
     }
-    /*for (int i = 0; i < 12; i++)
-    {
-        
-    }*/
+
+    result->valid = (fields[2][0] == 'A') ? 1 : 0;
+
+    // fields[1] = time "HHMMSS"
+    char time_str[3];
+    time_str[2] = '\0';
+
+    time_str[0] = fields[1][0]; time_str[1] = fields[1][1];
+    result->hours = atoi(time_str);
+
+    time_str[0] = fields[1][2]; time_str[1] = fields[1][3];
+    result->minutes = atoi(time_str);
+
+    time_str[0] = fields[1][4]; time_str[1] = fields[1][5];
+    result->seconds = atoi(time_str);
+
+    // fields[3] = latitude "DDMM.MMMM", fields[4] = hemisphere N/S
+    char lat_deg_str[3] = { fields[3][0], fields[3][1], '\0' };
+    float lat_deg = atof(lat_deg_str);
+    float lat_min = atof(&fields[3][2]);   // rest of string from index 2 onward
+    result->latitude = lat_deg + (lat_min / 60.0f);
+    if (fields[4][0] == 'S') result->latitude = -result->latitude;
+
+    // fields[5] = longitude "DDDMM.MMMM", fields[6] = hemisphere E/W
+    char lon_deg_str[4] = { fields[5][0], fields[5][1], fields[5][2], '\0' };
+    float lon_deg = atof(lon_deg_str);
+    float lon_min = atof(&fields[5][3]);   // rest of string from index 3 onward
+    result->longitude = lon_deg + (lon_min / 60.0f);
+    if (fields[6][0] == 'W') result->longitude = -result->longitude;
 }

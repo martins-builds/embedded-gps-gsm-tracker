@@ -9,4 +9,5 @@ int main(void) {
 
     printf("Lat: %.4f, Lon: %.4f\n", result.latitude, result.longitude);
     // etc.
+    return 0;
 }
