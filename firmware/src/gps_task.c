@@ -51,4 +51,6 @@ void uart1_init(void){
 
     GPIOA->AFRH |= (7 << 4);
     GPIOA->AFRH |= (7 << 8);
+
+    RCC->APB2ENR |= (1 << 14);
 }
