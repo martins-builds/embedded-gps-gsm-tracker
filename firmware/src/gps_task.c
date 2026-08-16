@@ -49,8 +49,8 @@ void uart1_init(void){
     GPIOA->MODER |= ((1 << 19) | (1 << 21)); 
     GPIOA->MODER &= ~((1 << 18) | (1 << 20));
 
-    GPIOA->AFRH |= (7 << 4);
-    GPIOA->AFRH |= (7 << 8);
+    GPIOA->AFRH &= ~((0xF << 4) | (0xF << 8));   // clear both 4-bit fields first
+    GPIOA->AFRH |=  ((7 << 4) | (7 << 8));        // AF7 for PA9, PA10
 
     RCC->APB2ENR |= (1 << 14);
 
