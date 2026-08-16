@@ -42,5 +42,5 @@ void gps_parse_gprmc(const char *sentence, GPS_Data_t *result){
     float lon_deg = atof(lon_deg_str);
     float lon_min = atof(&fields[5][3]);   // rest of string from index 3 onward
     result->longitude = lon_deg + (lon_min / 60.0f);
-    if (fields[6][0] == 'W') result->longitude = -result->longitude;
+    if(fields[6][0] == 'W') result->longitude = -result->longitude;
 }
