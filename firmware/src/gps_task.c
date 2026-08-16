@@ -13,9 +13,8 @@ void gps_parse_gprmc(const char *sentence, GPS_Data_t *result){
         i++;
         token = strtok(NULL, ",");
     }
-    for (int i = 0; i < 12; i++)
+    /*for (int i = 0; i < 12; i++)
     {
         
-    }
-    
+    }*/
 }
