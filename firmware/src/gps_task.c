@@ -48,4 +48,7 @@ void uart1_init(void){
     // alternate function modes
     GPIOA->MODER |= ((1 << 19) | (1 << 21)); 
     GPIOA->MODER &= ~((1 << 19) | (1 << 20));
+
+    GPIOA->AFRH |= (7 << 4);
+    GPIOA->AFRH |= (7 << 8);
 }
