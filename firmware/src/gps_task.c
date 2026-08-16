@@ -44,3 +44,8 @@ void gps_parse_gprmc(const char *sentence, GPS_Data_t *result){
     result->longitude = lon_deg + (lon_min / 60.0f);
     if(fields[6][0] == 'W') result->longitude = -result->longitude;
 }
+void uart1_init(void){
+    // alternate function modes
+    GPIOA->MODER |= ((1 << 19) | (1 << 21)); 
+    GPIOA->MODER &= ~((1 << 19) | (1 << 20));
+}

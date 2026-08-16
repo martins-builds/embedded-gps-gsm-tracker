@@ -11,5 +11,6 @@ typedef struct{
 } GPS_Data_t;
 
 void gps_parse_gprmc(const char *sentence, GPS_Data_t *result);
+void uart1_init(void);
 
 #endif
