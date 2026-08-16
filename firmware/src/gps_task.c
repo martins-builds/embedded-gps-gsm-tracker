@@ -47,13 +47,13 @@ void gps_parse_gprmc(const char *sentence, GPS_Data_t *result){
 void uart1_init(void){
     // alternate function modes
     GPIOA->MODER |= ((1 << 19) | (1 << 21)); 
-    GPIOA->MODER &= ~((1 << 19) | (1 << 20));
+    GPIOA->MODER &= ~((1 << 18) | (1 << 20));
 
     GPIOA->AFRH |= (7 << 4);
     GPIOA->AFRH |= (7 << 8);
 
     RCC->APB2ENR |= (1 << 14);
-    
+
     USART1->BRR = 8333;
     USART1->CR1 |= (1 << 0) | (1 << 2) | (1 << 3);
 }
