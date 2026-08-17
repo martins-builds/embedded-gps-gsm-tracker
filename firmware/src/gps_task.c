@@ -2,6 +2,10 @@
 #include <string.h>
 #include <stdlib.h>
 
+char gps_rx_buffer[GPS_BUF_SIZE];
+volatile uint8_t gps_line_ready = 0;
+static uint16_t gps_rx_index = 0;
+
 void gps_parse_gprmc(const char *sentence, GPS_Data_t *result){
     char sentence_copy[100];
     strcpy(sentence_copy, sentence);   // work on a copy, since strtok() destroys the original
