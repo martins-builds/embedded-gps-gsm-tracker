@@ -60,4 +60,6 @@ void uart1_init(void){
 
     USART1->BRR = 8333;
     USART1->CR1 |= (1 << 0) | (1 << 2) | (1 << 3);
+
+    NVIC
 }
