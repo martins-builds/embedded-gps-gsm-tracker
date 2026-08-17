@@ -61,5 +61,19 @@ void uart1_init(void){
     USART1->BRR = 8333;
     USART1->CR1 |= (1 << 0) | (1 << 2) | (1 << 3);
 
-    NVIC->ISER[0] |= (1 << 37);
+    USART1->CR1 |= (1 << 5);      // RXNEIE - enable RX-not-empty interrupt
+    NVIC->ISER[1] |= (1 << 5);   // IRQ37 = USART1
 }
+void USART1_IRQHandler(void){
+    uint8_t byte = USART1->RDR;   // reading RDR also clears RXNE automatically
+
+    for (int i = 0; i < GPS_BUF_SIZE; i++)
+    {
+        gps_rx_buffer[i] = byte;
+        gps_rx_index++;
+        if (strcmp(byte, '\n'))
+            gps_line_ready = 1;
+    }
+    
+}
+gps_line_ready = 0;

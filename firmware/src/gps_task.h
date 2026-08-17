@@ -17,5 +17,6 @@ extern volatile uint8_t gps_line_ready;
 
 void gps_parse_gprmc(const char *sentence, GPS_Data_t *result);
 void uart1_init(void);
+void USART1_IRQHandler(void);
 
 #endif
