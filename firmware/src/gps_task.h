@@ -14,9 +14,11 @@ typedef struct{
 #define GPS_BUF_SIZE 100
 extern char gps_rx_buffer[GPS_BUF_SIZE];
 extern volatile uint8_t gps_line_ready;
+extern GPS_Data_t gps_data;
 
 void gps_parse_gprmc(const char *sentence, GPS_Data_t *result);
 void uart1_init(void);
 void USART1_IRQHandler(void);
+void gps_process(void);
 
 #endif

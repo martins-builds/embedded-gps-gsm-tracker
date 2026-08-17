@@ -5,6 +5,7 @@
 char gps_rx_buffer[GPS_BUF_SIZE];
 volatile uint8_t gps_line_ready = 0;
 static uint16_t gps_rx_index = 0;
+GPS_Data_t gps_data;
 
 void gps_parse_gprmc(const char *sentence, GPS_Data_t *result){
     char sentence_copy[100];
@@ -78,5 +79,11 @@ void USART1_IRQHandler(void){
             gps_rx_index++;
         }
         // else: buffer full, byte silently dropped (overflow guard)
+    }
+}
+void gps_process(void){
+    if (gps_line_ready) {
+        gps_parse_gprmc(gps_rx_buffer, &gps_data);
+        gps_line_ready = 0;
     }
 }
