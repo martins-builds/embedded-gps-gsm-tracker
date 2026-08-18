@@ -1,6 +1,8 @@
 #include "gsm_task.h"
 #include <stdint.h>
 
+static uint16_t gsm_rx_index = 0;
+
 void uart3_init(void){
     // alternate function modes
     GPIOC->MODER |= ((1 << 9) | (1 << 11)); 
@@ -30,5 +32,17 @@ uint8_t buffer_ends_with(char *buf, uint16_t index, const char *suffix){
 }
 
 void USART3_IRQHandler(void){
+    uint8_t byte = USART3->RDR;
 
+    if (gsm_rx_index < GSM_BUF_SIZE - 1) {
+        gsm_rx_buffer[gsm_rx_index] = byte;
+        gsm_rx_index++;
+        gsm_rx_buffer[gsm_rx_index] = '\0';   // keep it null-terminated as we go
+
+        if (buffer_ends_with(gsm_rx_buffer, gsm_rx_index, "OK\r\n") ||
+            buffer_ends_with(gsm_rx_buffer, gsm_rx_index, "ERROR\r\n")) {
+            gsm_response_ready = 1;
+            gsm_rx_index = 0;
+        }
+    }
 }
