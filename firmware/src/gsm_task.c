@@ -30,7 +30,6 @@ uint8_t buffer_ends_with(char *buf, uint16_t index, const char *suffix){
     }
     return 1;
 }
-
 void USART3_IRQHandler(void){
     uint8_t byte = USART3->RDR;
 
@@ -45,4 +44,7 @@ void USART3_IRQHandler(void){
             gsm_rx_index = 0;
         }
     }
+}
+void gsm_send_command(const char *cmd){
+    
 }
