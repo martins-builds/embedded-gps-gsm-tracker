@@ -9,6 +9,7 @@ extern char gsm_rx_buffer[GSM_BUF_SIZE];
 extern volatile uint8_t gsm_response_ready;
 
 void uart3_init(void);
+uint8_t buffer_ends_with(char *buf, uint16_t index, const char *suffix);
 void USART3_IRQHandler(void);
 
 #endif

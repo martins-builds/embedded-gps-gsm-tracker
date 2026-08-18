@@ -17,7 +17,18 @@ void uart3_init(void){
     USART3->CR1 |= (1 << 5);   // RXNEIE - enable RX-not-empty interrupt
     NVIC->ISER[1] |= (1 << 7);   // IRQ39 = USART3
 }
+uint8_t buffer_ends_with(char *buf, uint16_t index, const char *suffix){
+    uint16_t suffix_len = strlen(suffix);
+    if (index < suffix_len) return 0;   // not enough bytes yet to possibly match
+
+    for (uint16_t i = 0; i < suffix_len; i++) {
+        if (buf[index - suffix_len + i] != suffix[i]) {
+            return 0;
+        }
+    }
+    return 1;
+}
 
 void USART3_IRQHandler(void){
-    
+
 }
