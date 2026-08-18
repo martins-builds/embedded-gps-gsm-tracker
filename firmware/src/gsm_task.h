@@ -5,6 +5,6 @@
 #include "core_cm4.h"
 
 void uart3_init(void);
-
+void USART3_IRQHandler(void);
 
 #endif

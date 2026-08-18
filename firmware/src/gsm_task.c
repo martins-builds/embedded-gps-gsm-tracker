@@ -17,3 +17,7 @@ void uart3_init(void){
     USART3->CR1 |= (1 << 5);   // RXNEIE - enable RX-not-empty interrupt
     NVIC->ISER[1] |= (1 << 7);   // IRQ39 = USART3
 }
+
+void USART3_IRQHandler(void){
+    
+}
