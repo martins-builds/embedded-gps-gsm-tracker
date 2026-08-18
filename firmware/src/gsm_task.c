@@ -3,11 +3,11 @@
 
 void uart3_init(void){
     // alternate function modes
-    GPIOA->MODER |= ((1 << 9) | (1 << 11)); 
-    GPIOA->MODER &= ~((1 << 8) | (1 << 10));
+    GPIOC->MODER |= ((1 << 9) | (1 << 11)); 
+    GPIOC->MODER &= ~((1 << 8) | (1 << 10));
 
-    GPIOA->AFRH &= ~((0xF << 16) | (0xF << 20));   // clear both 4-bit fields first
-    GPIOA->AFRH |=  ((7 << 16) | (7 << 20));        // AF7 for PA9, PA10
+    GPIOC->AFRL &= ~((0xF << 16) | (0xF << 20));   // clear both 4-bit fields first
+    GPIOC->AFRL |=  ((7 << 16) | (7 << 20));        // AF7 for PA9, PA10
 
     RCC->APB2ENR |= (1 << 14);
 
