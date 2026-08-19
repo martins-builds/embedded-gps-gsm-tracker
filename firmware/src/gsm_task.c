@@ -41,12 +41,14 @@ void USART3_IRQHandler(void){
     if (gsm_rx_index < GSM_BUF_SIZE - 1) {
         gsm_rx_buffer[gsm_rx_index] = byte;
         gsm_rx_index++;
-        gsm_rx_buffer[gsm_rx_index] = '\0';   // keep it null-terminated as we go
+        gsm_rx_buffer[gsm_rx_index] = '\0';
 
         if (buffer_ends_with(gsm_rx_buffer, gsm_rx_index, "OK\r\n") ||
             buffer_ends_with(gsm_rx_buffer, gsm_rx_index, "ERROR\r\n")) {
-            gsm_response_ready = 1;
+            BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+            xSemaphoreGiveFromISR(gsm_response_sem, &xHigherPriorityTaskWoken);
             gsm_rx_index = 0;
+            portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
         }
     }
 }

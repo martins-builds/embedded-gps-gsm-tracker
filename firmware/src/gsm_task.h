@@ -3,6 +3,7 @@
 
 #include "stm32l476re.h"
 #include "core_cm4.h"
+#include "FreeRTOS.h"
 #include "semphr.h"
 
 #define GSM_BUF_SIZE 200
