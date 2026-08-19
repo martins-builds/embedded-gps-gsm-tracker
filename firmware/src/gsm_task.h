@@ -18,5 +18,6 @@ void USART3_IRQHandler(void);
 void uart3_send_byte(uint8_t byte);
 void uart3_send_string(const char *str);
 void gsm_send_command(const char *cmd);
+void gsm_task(void *pvParameters);
 
 #endif

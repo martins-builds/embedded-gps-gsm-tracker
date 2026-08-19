@@ -68,3 +68,16 @@ void gsm_send_command(const char *cmd){
     uart3_send_string(cmd);
     uart3_send_string("\r\n");
 }
+void gsm_task(void *pvParameters){
+    gsm_send_command("AT");
+    if (xSemaphoreTake(gsm_response_sem, pdMS_TO_TICKS(5000)) == pdTRUE) {
+        // check gsm_rx_buffer for "OK"
+    }
+
+    gsm_send_command("AT+CPIN?");
+    if (xSemaphoreTake(gsm_response_sem, pdMS_TO_TICKS(5000)) == pdTRUE) {
+        // check response
+    }
+
+    // ... continue through CREG?, CGATT=1, SAPBR, HTTPINIT, HTTPPARA, HTTPACTION, HTTPREAD
+}
