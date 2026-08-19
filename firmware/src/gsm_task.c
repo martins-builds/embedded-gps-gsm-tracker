@@ -97,5 +97,43 @@ void gsm_task(void *pvParameters){
         // handle failure
     }
 
-    // ... continue through CGATT=1, SAPBR, HTTPINIT, HTTPPARA, HTTPACTION, HTTPREAD
+    if (!gsm_send_and_wait("AT+CGATT=1", 3))
+    {
+        // handle failure
+    }
+    
+    if (!gsm_send_and_wait("AT+SAPBR=3,1,\"Contype\",\"GPRS\"", 3))
+    {
+        // handle failure
+    }
+
+    if (!gsm_send_and_wait("AT+SAPBR=1,1", 3))
+    {
+        // handle failure
+    }
+
+    if (!gsm_send_and_wait("AT+HTTPINIT", 3))
+    {
+        // handle failure
+    }
+
+    if (!gsm_send_and_wait("AT+HTTPPARA=\"CID\",1", 3))
+    {
+        // handle failure
+    }
+
+    if (!gsm_send_and_wait("AT+HTTPPARA=\"URL\",\"http://yourserver.com/api/location\"", 3))
+    {
+        // handle failure
+    }
+
+    if (!gsm_send_and_wait("AT+HTTPACTION=1", 3))
+    {
+        // handle failure
+    }
+
+    if (!gsm_send_and_wait("AT+HTTPREAD", 3))
+    {
+        // handle failure
+    }
 }
