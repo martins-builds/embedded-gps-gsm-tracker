@@ -2,6 +2,7 @@
 #include <stdint.h>
 
 static uint16_t gsm_rx_index = 0;
+volatile uint8_t gsm_response_ready;
 
 void uart3_init(void){
     // alternate function modes
