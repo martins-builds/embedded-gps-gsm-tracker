@@ -12,6 +12,7 @@ void uart3_init(void);
 uint8_t buffer_ends_with(char *buf, uint16_t index, const char *suffix);
 void USART3_IRQHandler(void);
 void gsm_send_command(const char *cmd);
-uart3_send_byte(uint8_t byte);
+void uart3_send_byte(uint8_t byte);
+void uart3_send_string(const char *str);
 
 #endif
