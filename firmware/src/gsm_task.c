@@ -84,6 +84,29 @@ uint8_t gsm_send_and_wait(const char *cmd, uint8_t max_retries){
     }
     return 0;   // all retries exhausted, genuine failure
 }
+void gsm_send_location(GPS_Data_t *gps){
+    char url_cmd[100];
+    char body_cmd[150];
+    char json_body[100];
+
+    // Build the JSON body with real GPS data
+    sprintf(json_body,
+        "{\"device_id\":\"MB-TRACK-01\",\"lat\":%.4f,\"lon\":%.4f,\"timestamp\":\"%02d:%02d:%02d\"}",
+        gps->latitude, gps->longitude, gps->hours, gps->minutes, gps->seconds);
+
+    // Set the URL (fixed endpoint, no GPS data needed here)
+    gsm_send_and_wait("AT+HTTPPARA=\"URL\",\"http://yourserver.com/api/location\"", 3);
+
+    // Tell the module how many bytes of data are coming, and give it time to accept
+    sprintf(body_cmd, "AT+HTTPDATA=%d,10000", (int)strlen(json_body));
+    gsm_send_and_wait(body_cmd, 3);
+
+    // Send the actual JSON body (not a normal AT command - raw data)
+    uart3_send_string(json_body);
+
+    // Now trigger the actual POST
+    gsm_send_and_wait("AT+HTTPACTION=1", 3);
+}
 void gsm_task(void *pvParameters){
     if (!gsm_send_and_wait("AT", 3)) {
         // handle total failure - e.g. display error on OLED, or abort
