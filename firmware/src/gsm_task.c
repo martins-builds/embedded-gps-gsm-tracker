@@ -45,6 +45,17 @@ void USART3_IRQHandler(void){
         }
     }
 }
+void uart3_send_byte(uint8_t byte){
+    while (!(USART3->ISR & (1 << 7)));   // wait for TXE (transmit register empty)
+    USART3->TDR = byte;
+}
+
+void uart3_send_string(const char *str){
+    while (*str) {
+        uart3_send_byte((uint8_t)*str);
+        str++;
+    }
+}
 void gsm_send_command(const char *cmd){
     
 }
