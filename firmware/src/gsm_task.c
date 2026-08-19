@@ -68,16 +68,34 @@ void gsm_send_command(const char *cmd){
     uart3_send_string(cmd);
     uart3_send_string("\r\n");
 }
+uint8_t gsm_send_and_wait(const char *cmd, uint8_t max_retries){
+    for (uint8_t attempt = 0; attempt < max_retries; attempt++) {
+        gsm_send_command(cmd);
+
+        if (xSemaphoreTake(gsm_response_sem, pdMS_TO_TICKS(5000)) == pdTRUE) {
+            if (strstr(gsm_rx_buffer, "OK") != NULL) {
+                return 1;   // success
+            }
+            // response arrived but wasn't OK (likely ERROR) - fall through to retry
+        }
+        // else: timed out - fall through to retry
+
+        vTaskDelay(pdMS_TO_TICKS(500));   // brief pause before retrying
+    }
+    return 0;   // all retries exhausted, genuine failure
+}
 void gsm_task(void *pvParameters){
-    gsm_send_command("AT");
-    if (xSemaphoreTake(gsm_response_sem, pdMS_TO_TICKS(5000)) == pdTRUE) {
-        // check gsm_rx_buffer for "OK"
+    if (!gsm_send_and_wait("AT", 3)) {
+        // handle total failure - e.g. display error on OLED, or abort
     }
 
-    gsm_send_command("AT+CPIN?");
-    if (xSemaphoreTake(gsm_response_sem, pdMS_TO_TICKS(5000)) == pdTRUE) {
-        // check response
+    if (!gsm_send_and_wait("AT+CPIN?", 3)) {
+        // handle failure
     }
 
-    // ... continue through CREG?, CGATT=1, SAPBR, HTTPINIT, HTTPPARA, HTTPACTION, HTTPREAD
+    if (!gsm_send_and_wait("AT+CREG?", 3)) {
+        // handle failure
+    }
+
+    // ... continue through CGATT=1, SAPBR, HTTPINIT, HTTPPARA, HTTPACTION, HTTPREAD
 }
