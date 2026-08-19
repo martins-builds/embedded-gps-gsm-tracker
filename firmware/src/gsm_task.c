@@ -3,6 +3,7 @@
 
 static uint16_t gsm_rx_index = 0;
 volatile uint8_t gsm_response_ready;
+SemaphoreHandle_t gsm_response_sem;
 
 void uart3_init(void){
     // alternate function modes
@@ -19,6 +20,9 @@ void uart3_init(void){
 
     USART3->CR1 |= (1 << 5);   // RXNEIE - enable RX-not-empty interrupt
     NVIC->ISER[1] |= (1 << 7);   // IRQ39 = USART3
+}
+void gsm_task_init(void){
+    gsm_response_sem = xSemaphoreCreateBinary();
 }
 uint8_t buffer_ends_with(char *buf, uint16_t index, const char *suffix){
     uint16_t suffix_len = strlen(suffix);
