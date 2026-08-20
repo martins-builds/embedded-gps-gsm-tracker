@@ -199,6 +199,7 @@ typedef struct
     volatile uint32_t ISR;
     volatile uint32_t PRER;
     volatile uint32_t WUTR;
+    volatile uint32_t RESERVED0;
     volatile uint32_t ALRMAR;
     volatile uint32_t ALRMBR;
     volatile uint32_t WPR;
