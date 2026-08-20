@@ -210,14 +210,10 @@ typedef struct
     volatile uint32_t CALR;
     volatile uint32_t TAMPCR;
     volatile uint32_t ALRMASSR;
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
+    volatile uint32_t ALRMBSSR;
+    volatile uint32_t OR;
+    volatile uint32_t BKP0R;
+    volatile uint32_t BKP31R;
 } RTC_TypeDef;
 
 
