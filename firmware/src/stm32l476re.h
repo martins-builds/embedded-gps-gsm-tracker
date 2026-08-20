@@ -212,8 +212,7 @@ typedef struct
     volatile uint32_t ALRMASSR;
     volatile uint32_t ALRMBSSR;
     volatile uint32_t OR;
-    volatile uint32_t BKP0R;
-    volatile uint32_t BKP31R;
+   volatile uint32_t BKPR[32];   // BKP0R through BKP31R, as a proper array
 } RTC_TypeDef;
 
 
