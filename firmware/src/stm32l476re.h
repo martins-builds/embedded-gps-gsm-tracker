@@ -191,6 +191,28 @@ typedef struct
     volatile uint32_t PDCRI;
 } PWR_TypeDef;
 
+typedef struct
+{
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+    volatile uint32_t 
+} RTC_TypeDef;
+
+
 //POINTER MACROS
 #define GPIOA  ((GPIO_TypeDef *) GPIOA_BASE)
 #define GPIOB  ((GPIO_TypeDef *) GPIOB_BASE)
