@@ -193,23 +193,24 @@ typedef struct
 
 typedef struct
 {
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
-    volatile uint32_t 
+    volatile uint32_t TR;
+    volatile uint32_t DR;
+    volatile uint32_t CR;
+    volatile uint32_t ISR;
+    volatile uint32_t PRER;
+    volatile uint32_t WUTR;
+    volatile uint32_t ALRMAR;
+    volatile uint32_t ALRMBR;
+    volatile uint32_t WPR;
+    volatile uint32_t SSR;
+    volatile uint32_t SHIFTR;
+    volatile uint32_t TSTR;
+    volatile uint32_t TSDR;
+    volatile uint32_t TSSSR;
+    volatile uint32_t CALR;
+    volatile uint32_t TAMPCR;
+    volatile uint32_t ALRMASSR;
+    
 } RTC_TypeDef;
 
 
