@@ -5,13 +5,7 @@
 #include "core_cm4.h"
 #include "FreeRTOS.h"
 #include "semphr.h"
-
-typedef struct{
-    float latitude;
-    float longitude;
-    uint8_t hours, minutes, seconds;
-    uint8_t valid;
-} GPS_Data_t;
+#include "gps_task.h"
 
 #define GSM_BUF_SIZE 200
 extern char gsm_rx_buffer[GSM_BUF_SIZE];
