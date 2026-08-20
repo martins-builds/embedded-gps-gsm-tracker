@@ -104,7 +104,7 @@ void gsm_send_location(GPS_Data_t *gps){
     // Send the actual JSON body (not a normal AT command - raw data)
     uart3_send_string(json_body);
 
-    
+    // Now trigger the actual POST
     gsm_send_and_wait("AT+HTTPACTION=1", 3);
 }
 void gsm_task(void *pvParameters){
