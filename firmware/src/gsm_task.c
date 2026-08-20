@@ -1,5 +1,4 @@
 #include "gsm_task.h"
-#include "gps_task.h"
 #include <stdint.h>
 
 static uint16_t gsm_rx_index = 0;
