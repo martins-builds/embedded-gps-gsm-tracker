@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include "stm32l476re.h"
 
 extern uint32_t _estack;
 extern uint32_t _sdata, _edata, _sidata;
@@ -27,7 +28,13 @@ void Reset_Handler(void) {
 void Default_Handler(void) { while (1) {} }
 
 void rtc_init(void){
-
+    PWR->CR1 |= (1 << 8);
+    RCC->BDCR |= (1 << 0); //LSEON
+    while (!(RCC->BDCR & (1 << 1))); //LSERDY
+    RCC->BDCR |= (1 << 8); // select LSE
+    RCC->BDCR |= (1 << 1); //enable clock
+    RTC->WPR |= (0xCA << 0);
+    RTC->WPR |= (0x53 << 0);
 }
 /* STM32L476RE vector table.
  * Positions/names per RM0351 + CMSIS device header (stm32l476xx.h).

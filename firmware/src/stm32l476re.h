@@ -17,6 +17,7 @@
 #define USART1_BASE    0x40013800
 #define USART3_BASE    0x40004800
 #define PWR_BASE       0x40007000
+#define RTC_BASE       0x40002800
 
 //MEMORY MAPS
 typedef struct 
@@ -233,5 +234,5 @@ typedef struct
 #define USART1 ((USART_TypeDef*) USART1_BASE)
 #define USART3 ((USART_TypeDef*) USART3_BASE)
 #define PWR    ((PWR_TypeDef*) PWR_BASE)
-
+#define RTC    ((RTC_TypeDef*) RTC_BASE)
 #endif
