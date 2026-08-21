@@ -32,9 +32,9 @@ void rtc_init(void){
     RCC->BDCR |= (1 << 0); //LSEON
     while (!(RCC->BDCR & (1 << 1))); //LSERDY
     RCC->BDCR |= (1 << 8); // select LSE
-    RCC->BDCR |= (1 << 1); //enable clock
-    RTC->WPR |= (0xCA << 0);
-    RTC->WPR |= (0x53 << 0);
+    RCC->BDCR |= (1 << 15); //enable clock
+    RTC->WPR = 0xCA;
+    RTC->WPR = 0x53;
 }
 /* STM32L476RE vector table.
  * Positions/names per RM0351 + CMSIS device header (stm32l476xx.h).
