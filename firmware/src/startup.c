@@ -47,6 +47,7 @@ void rtc_init(void){
     //Re-enable write protection
     RTC->WPR = 0xFF;
 }
+
 /* STM32L476RE vector table.
  * Positions/names per RM0351 + CMSIS device header (stm32l476xx.h).
  * DIFFERENT from F446 -- do not reuse the old table.
