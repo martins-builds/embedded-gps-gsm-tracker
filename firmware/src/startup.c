@@ -7,6 +7,7 @@ extern uint32_t _sbss, _ebss;
 void main(void);
 void Reset_Handler(void);
 void Default_Handler(void);
+void rtc_init(void);
 
 /* FreeRTOS handlers (see FreeRTOSConfig.h for the #define mapping) */
 void SVC_Handler(void);
@@ -25,6 +26,9 @@ void Reset_Handler(void) {
 
 void Default_Handler(void) { while (1) {} }
 
+void rtc_init(void){
+
+}
 /* STM32L476RE vector table.
  * Positions/names per RM0351 + CMSIS device header (stm32l476xx.h).
  * DIFFERENT from F446 -- do not reuse the old table.
