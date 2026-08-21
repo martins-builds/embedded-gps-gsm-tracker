@@ -40,7 +40,10 @@ void rtc_init(void){
     while (!(RTC->ISR & (1 << 6)));  // wait for INITF
     //Program prescaler for 1Hz (LSE 32.768kHz -> async /128, sync /256)
     RTC->PRER = (127 << 16) | (255 << 0);   // PREDIV_A=127, PREDIV_S=255
-    
+    //Set 24-hour format
+    RTC->CR &= ~(1 << 6);         // FMT = 0 (24-hour)
+    //Exit initialization mode
+    RTC->ISR &= ~(1 << 7);        // clear INIT bit
 }
 /* STM32L476RE vector table.
  * Positions/names per RM0351 + CMSIS device header (stm32l476xx.h).
