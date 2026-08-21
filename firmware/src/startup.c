@@ -35,6 +35,9 @@ void rtc_init(void){
     RCC->BDCR |= (1 << 15); //enable clock
     RTC->WPR = 0xCA;
     RTC->WPR = 0x53;
+    //enter initialization mode
+    RTC->ISR |= (1 << 7);         // INIT bit
+    while (!(RTC->ISR & (1 << 6)));  // wait for INITF
 }
 /* STM32L476RE vector table.
  * Positions/names per RM0351 + CMSIS device header (stm32l476xx.h).
