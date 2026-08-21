@@ -11,6 +11,7 @@ C_SOURCES = src/main.c \
             src/display_task.c \
             src/gpio.c \
             src/clock.c \
+            src/rtc.c \
             $(FREERTOS)/tasks.c \
             $(FREERTOS)/queue.c \
             $(FREERTOS)/list.c \
