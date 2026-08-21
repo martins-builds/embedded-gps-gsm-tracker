@@ -3,4 +3,6 @@
 
 #include "stm32l476re.h"
 
+void rtc_init(void);
+
 #endif
