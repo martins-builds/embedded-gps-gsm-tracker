@@ -44,7 +44,8 @@ void rtc_init(void){
     RTC->CR &= ~(1 << 6);         // FMT = 0 (24-hour)
     //Exit initialization mode
     RTC->ISR &= ~(1 << 7);        // clear INIT bit
-    
+    //Re-enable write protection
+    RTC->WPR = 0xFF;
 }
 /* STM32L476RE vector table.
  * Positions/names per RM0351 + CMSIS device header (stm32l476xx.h).
