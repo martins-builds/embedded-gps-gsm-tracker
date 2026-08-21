@@ -1,5 +1,4 @@
 #include <stdint.h>
-#include "stm32l476re.h"
 
 extern uint32_t _estack;
 extern uint32_t _sdata, _edata, _sidata;
@@ -8,7 +7,6 @@ extern uint32_t _sbss, _ebss;
 void main(void);
 void Reset_Handler(void);
 void Default_Handler(void);
-void rtc_init(void);
 
 /* FreeRTOS handlers (see FreeRTOSConfig.h for the #define mapping) */
 void SVC_Handler(void);
