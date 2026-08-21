@@ -45,7 +45,7 @@ void rtc_init(void){
     //Exit initialization mode
     RTC->ISR &= ~(1 << 7);        // clear INIT bit
     //Re-enable write protection
-    RTC->WPR = 0xFF;
+    RTC->WPR = 0xFF; // write protection re-locks automatically on any non-key write
 }
 
 /* STM32L476RE vector table.
