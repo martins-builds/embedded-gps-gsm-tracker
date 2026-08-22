@@ -27,6 +27,18 @@ typedef struct {
      volatile uint32_t CPUID;
      volatile uint32_t ICSR;
      volatile uint32_t VTOR;
+     volatile uint32_t 
+     volatile uint32_t 
+     volatile uint32_t 
+     volatile uint32_t 
+     volatile uint32_t 
+     volatile uint32_t 
+     volatile uint32_t 
+     volatile uint32_t 
+     volatile uint32_t 
+     volatile uint32_t 
+     volatile uint32_t 
+     volatile uint32_t 
 } SCB_TypeDef;
 
 #define NVIC   ((NVIC_TypeDef*) NVIC_BASE)
