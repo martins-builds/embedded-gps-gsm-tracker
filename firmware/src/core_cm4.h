@@ -24,8 +24,8 @@ typedef struct {
 } NVIC_TypeDef;
 
 typedef struct {
-     
-}
+
+} SCB_TypeDef;
 
 #define NVIC   ((NVIC_TypeDef*) NVIC_BASE)
 
