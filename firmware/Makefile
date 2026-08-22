@@ -12,6 +12,7 @@ C_SOURCES = src/main.c \
             src/gpio.c \
             src/clock.c \
             src/rtc.c \
+            src/power.c \
             $(FREERTOS)/tasks.c \
             $(FREERTOS)/queue.c \
             $(FREERTOS)/list.c \
