@@ -23,6 +23,10 @@ typedef struct {
     volatile uint32_t STIR;       // 0xE00  Software Trigger
 } NVIC_TypeDef;
 
+typedef struct {
+     
+}
+
 #define NVIC   ((NVIC_TypeDef*) NVIC_BASE)
 
 #endif
