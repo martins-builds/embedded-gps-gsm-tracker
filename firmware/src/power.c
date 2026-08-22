@@ -1,4 +1,5 @@
 #include "power.h"
+#include "clock.h"
 
 void enter_stop_mode(void){
     PWR->CR1 &= ~(3 << 0);
