@@ -4,6 +4,7 @@
 #include <stdint.h>
 
 #define NVIC_BASE   0xE000E100
+#define SCB_BASE    0xE000ED00
 
 //hardest struct yet
 typedef struct {
