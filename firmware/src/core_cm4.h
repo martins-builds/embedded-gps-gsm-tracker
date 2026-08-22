@@ -27,11 +27,11 @@ typedef struct {
      volatile uint32_t CPUID;
      volatile uint32_t ICSR;
      volatile uint32_t VTOR;
-     volatile uint32_t 
-     volatile uint32_t 
-     volatile uint32_t 
-     volatile uint32_t 
-     volatile uint32_t 
+     volatile uint32_t SHCRS;
+     volatile uint32_t CFSR;
+     volatile uint32_t HFSR;
+     volatile uint32_t MMAR;
+     volatile uint32_t BFAR;
      volatile uint32_t 
      volatile uint32_t 
      volatile uint32_t 
