@@ -4,6 +4,6 @@
 #include "stm32l476re.h"
 #include "core_cm4.h"
 
-void enter_low_power_mode(void);
+void enter_stop_mode(void);
 
 #endif
