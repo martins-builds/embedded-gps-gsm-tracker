@@ -9,5 +9,6 @@ void enter_stop_mode(void){
     /*hard to find, keep sleeping till interrupt i.e power on
     or distress signal*/
     __asm volatile ("wfi"); 
-    
+
+    clock_init(); //reestablish my 80MHz speed onn wakeup
 }
