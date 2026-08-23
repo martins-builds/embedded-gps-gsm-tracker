@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-int main(void){
+__attribute__((used)) void main(void){
     // Simulate what the ISR would have built, byte by byte, from a real sentence
     const char *fake_incoming = "$GPRMC,123519,A,4807.038,N,01131.000,E,022.4,084.4,230394,003.1,W";
     strcpy(gps_rx_buffer, fake_incoming);
