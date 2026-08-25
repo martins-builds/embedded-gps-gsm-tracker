@@ -89,10 +89,7 @@ void gps_process(void){
 }
 void gps_task(void *pvParameters){
     while (1) {
-        if (gps_line_ready) {
-            gps_parse_gprmc(gps_rx_buffer, &gps_data);
-            gps_line_ready = 0;
-        }
+        gps_process();
         vTaskDelay(pdMS_TO_TICKS(100));  // yield to other tasks periodically
     }
 }
