@@ -10,6 +10,6 @@ __attribute__((used)) void main(void){
         if (gps_data.valid){
             gsm_send_location(&gps_data);
         }
-        enter_stop_mode();
+        enter_stop_mode();// not gonna use this for now
     }
 }
