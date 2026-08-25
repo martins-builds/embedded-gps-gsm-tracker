@@ -88,7 +88,6 @@ uint8_t gsm_send_and_wait(const char *cmd, uint8_t max_retries){
     return 0;   // all retries exhausted, genuine failure
 }
 void gsm_send_location(GPS_Data_t *gps){
-    char url_cmd[100];
     char body_cmd[150];
     char json_body[100];
 
