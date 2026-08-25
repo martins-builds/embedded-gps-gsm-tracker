@@ -110,16 +110,22 @@ void gsm_send_location(GPS_Data_t *gps){
     gsm_send_and_wait("AT+HTTPACTION=1", 3);
 }
 void gsm_task(void *pvParameters){
-    if (!gsm_send_and_wait("AT", 3)) { /* handle failure */ }
-    if (!gsm_send_and_wait("AT+CPIN?", 3)) { /* handle failure */ }
-    if (!gsm_send_and_wait("AT+CREG?", 3)) { /* handle failure */ }
-    if (!gsm_send_and_wait("AT+CGATT=1", 3)) { /* handle failure */ }
-    if (!gsm_send_and_wait("AT+SAPBR=3,1,\"Contype\",\"GPRS\"", 3)) { /* handle failure */ }
-    if (!gsm_send_and_wait("AT+SAPBR=1,1", 3)) { /* handle failure */ }
-    if (!gsm_send_and_wait("AT+HTTPINIT", 3)) { /* handle failure */ }
-    if (!gsm_send_and_wait("AT+HTTPPARA=\"CID\",1", 3)) { /* handle failure */ }
+    while (1) {
+        if (gps_data.valid) {
+            if (!gsm_send_and_wait("AT", 3)) { /* handle failure */ }
+            if (!gsm_send_and_wait("AT+CPIN?", 3)) { /* handle failure */ }
+            if (!gsm_send_and_wait("AT+CREG?", 3)) { /* handle failure */ }
+            if (!gsm_send_and_wait("AT+CGATT=1", 3)) { /* handle failure */ }
+            if (!gsm_send_and_wait("AT+SAPBR=3,1,\"Contype\",\"GPRS\"", 3)) { /* handle failure */ }
+            if (!gsm_send_and_wait("AT+SAPBR=1,1", 3)) { /* handle failure */ }
+            if (!gsm_send_and_wait("AT+HTTPINIT", 3)) { /* handle failure */ }
+            if (!gsm_send_and_wait("AT+HTTPPARA=\"CID\",1", 3)) { /* handle failure */ }
 
-    gsm_send_location(&gps_data);   // this replaces the two old HTTPPARA URL + HTTPACTION lines
+            gsm_send_location(&gps_data);
 
-    if (!gsm_send_and_wait("AT+HTTPREAD", 3)) { /* handle failure */ }
+            if (!gsm_send_and_wait("AT+HTTPREAD", 3)) { /* handle failure */ }
+        }
+
+        vTaskDelay(pdMS_TO_TICKS(300000));  // wait ~5 minutes before next send cycle
+    }
 }
