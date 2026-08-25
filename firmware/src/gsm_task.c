@@ -1,5 +1,7 @@
 #include "gsm_task.h"
 #include <stdint.h>
+#include <string.h>
+#include <stdio.h>
 
 static uint16_t gsm_rx_index = 0;
 volatile uint8_t gsm_response_ready;

@@ -12,5 +12,4 @@ __attribute__((used)) void main(void){
         }
         enter_stop_mode();
     }
-    return 0;
 }
