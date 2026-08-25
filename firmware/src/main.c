@@ -5,10 +5,10 @@
 #include <string.h>
 
 __attribute__((used)) void main(void){
-    GPS_Data_t gps_data;
     while (1){
-        gsm_task(&gps_data);
-        enter_stop_mode();
+        if (gps_data.valid){
+            gsm_task(&gps_data);
+        }
     }
     return 0;
 }
