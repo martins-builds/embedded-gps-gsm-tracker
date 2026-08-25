@@ -6,7 +6,6 @@
 static uint16_t gsm_rx_index = 0;
 volatile uint8_t gsm_response_ready;
 SemaphoreHandle_t gsm_response_sem;
-GPS_Data_t gps_data;
 
 void uart3_init(void){
     // alternate function modes
