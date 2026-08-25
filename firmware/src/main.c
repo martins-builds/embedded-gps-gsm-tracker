@@ -10,6 +10,6 @@ __attribute__((used)) void main(void){
         gsm_task(&gps_data);
         enter_stop_mode();
     }
-    
+    aa
     return 0;
 }
