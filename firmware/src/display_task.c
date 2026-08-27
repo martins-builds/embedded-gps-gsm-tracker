@@ -113,5 +113,4 @@ void display_task(void *pvParameters){
         ssd1306_update_display();
         vTaskDelay(20);
     }
-    
 }
