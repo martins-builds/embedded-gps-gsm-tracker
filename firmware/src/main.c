@@ -1,3 +1,4 @@
+#include "task.h"
 #include "gps_task.h"
 #include "gsm_task.h"
 #include "clock.h"
