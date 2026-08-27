@@ -25,5 +25,5 @@ __attribute__((used)) void main(void){
     xTaskCreate(gps_task, "GPM", 128, NULL, 1, NULL);
     xTaskCreate(display_task, "DISPLAY", 128, NULL, 1, NULL);
     vTaskStartScheduler();
-    while(1);
+    //need watchdog for program break
 }
