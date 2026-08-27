@@ -19,4 +19,6 @@ __attribute__((used)) void main(void){
     gsm_task_init();
     ssd1306_init();
 
+    //create tasks
+    xTaskCreate(function_name, "TaskName", 128, NULL, 1, NULL);
 }
