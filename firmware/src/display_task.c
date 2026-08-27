@@ -111,6 +111,6 @@ void ssd1306_update_display(void){
 void display_task(void *pvParameters){
     while (1){
         ssd1306_update_display();
-        vTaskDelay(20);
+        vTaskDelay(pdMS_TO_TICKS(1000));  // refresh once per second
     }
 }
