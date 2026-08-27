@@ -23,4 +23,6 @@ __attribute__((used)) void main(void){
     xTaskCreate(gsm_task, "GSM", 128, NULL, 1, NULL);
     xTaskCreate(gps_task, "GPM", 128, NULL, 1, NULL);
     xTaskCreate(display_task, "DISPLAY", 128, NULL, 1, NULL);
+    vTaskStartScheduler();
+    while(1);
 }
