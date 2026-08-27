@@ -20,5 +20,6 @@ void gps_parse_gprmc(const char *sentence, GPS_Data_t *result);
 void uart1_init(void);
 void USART1_IRQHandler(void);
 void gps_process(void);
+void gps_task(void *pvParameters);
 
 #endif
