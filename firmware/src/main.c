@@ -8,11 +8,15 @@
 #include "FreeRTOS.h"
 
 __attribute__((used)) void main(void){
+    //initializations
     clock_init();
     gpio_init();
     button_interrupt_init();
     i2c_init();
     uart1_init();
     uart3_init();
+    rtc_init();
+    gsm_task_init();
+    ssd1306_init();
 
 }
