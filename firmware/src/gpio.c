@@ -48,7 +48,7 @@ void button_interrupt_init(void) {
 
 void power_btn_pressed(void) {
     //debounce logic fix
-    //wake up screen
+    //wake up screen,
 }
 
 void distress_btn_pressed(void) {
