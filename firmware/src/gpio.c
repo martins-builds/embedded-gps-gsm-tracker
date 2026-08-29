@@ -1,5 +1,6 @@
 #include "gpio.h"
 #include "core_cm4.h"
+#include "display_task.h"
 
 void gpio_init(void){
     RCC->AHB2ENR |= (1 << 2); //gpioc enabled
@@ -48,7 +49,8 @@ void button_interrupt_init(void) {
 
 void power_btn_pressed(void) {
     //debounce logic fix
-    //wake up screen,
+    //wake up screen
+    display_task();
 }
 
 void distress_btn_pressed(void) {
