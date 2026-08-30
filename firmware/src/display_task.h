@@ -2,6 +2,7 @@
 #define DISPLAY_TASK_H
 
 #include "stm32l476re.h"
+#include "font8x8.h"
 #include <stdint.h>
 
 void i2c_init(void);
