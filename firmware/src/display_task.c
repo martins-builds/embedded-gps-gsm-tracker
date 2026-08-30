@@ -90,7 +90,9 @@ void OLED_DrawChar(int16_t x, int16_t y, char c){
     }
 }
 void OLED_DrawString(int16_t x, int16_t y, char *str){
-
+    while (*str) {
+       OLED_DrawChar(x, y, *str++);
+    }
 }
 void i2c_write(uint8_t dev_addr, uint8_t *data, uint16_t len){
     // Configure CR2: address, byte count, write direction, autoend
