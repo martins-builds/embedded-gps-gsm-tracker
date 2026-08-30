@@ -137,4 +137,4 @@ const unsigned char font5x8[128][5] = {
     {0x00, 0x00, 0x00, 0x00, 0x00}, // ASCII 127
 };
 
-#endif // FONT5X8_H
+#endif
