@@ -81,7 +81,9 @@ void OLED_DrawPixel(int16_t x, int16_t y, uint8_t color) {
 void OLED_DrawChar(x, y, char c){
 
 }
-void 
+void OLED_DrawString(x, y, char *str){
+    
+}
 void i2c_write(uint8_t dev_addr, uint8_t *data, uint16_t len){
     // Configure CR2: address, byte count, write direction, autoend
     I2C1->CR2 = (dev_addr << 1)      // SADD[7:1] = device address
