@@ -53,9 +53,9 @@ void power_btn_pressed(void) {
     //display_task();
 }
 
-void distress_btn_pressed(void) {
-    //debounce logic fix
-    //send sos via uart from gps, gsm and software
+void distress_btn_pressed(void){
+    OLED_DrawString(10, 20, "SOS");
+    ssd1306_update_display();
 }
 
 // interrupt handlers
