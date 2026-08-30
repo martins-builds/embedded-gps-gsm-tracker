@@ -79,19 +79,15 @@ void OLED_DrawPixel(int16_t x, int16_t y, uint8_t color) {
     }
 }
 void OLED_DrawChar(int16_t x, int16_t y, char c){
-    for (int i = 0; i < 5; i++)
-    {
-        for (int j = 0; j < 8; j++)
-        {
-            if (font5x8[i][j] == 1)
-            {
-                OLED_DrawPixel(i, j, 0xFF0000);
+    for (int col = 0; col < 5; col++) {
+        uint8_t column_byte = font5x8[(uint8_t)c][col];
+
+        for (int row = 0; row < 8; row++) {
+            if (column_byte & (1 << row)) {
+                OLED_DrawPixel(x + col, y + row, 1);
             }
-            
         }
-        
     }
-    
 }
 void OLED_DrawString(int16_t x, int16_t y, char *str){
 
