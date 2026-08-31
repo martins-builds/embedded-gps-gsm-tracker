@@ -48,9 +48,7 @@ void button_interrupt_init(void) {
 }
 
 void power_btn_pressed(void) {
-    //debounce logic fix
-    //wake up screen
-    //display_task();
+    OLED_DrawString(10, 20, "SOS");
 }
 
 void distress_btn_pressed(void){
