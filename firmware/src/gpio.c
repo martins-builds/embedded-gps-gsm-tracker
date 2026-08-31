@@ -49,6 +49,7 @@ void button_interrupt_init(void) {
 
 void power_btn_pressed(void) {
     OLED_DrawString(10, 20, "READY");
+    ssd1306_update_display();
 }
 
 void distress_btn_pressed(void){
