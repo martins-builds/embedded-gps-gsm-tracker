@@ -48,7 +48,7 @@ void button_interrupt_init(void) {
 }
 
 void power_btn_pressed(void) {
-    OLED_DrawString(10, 20, "SOS");
+    OLED_DrawString(10, 20, "READY");
 }
 
 void distress_btn_pressed(void){
