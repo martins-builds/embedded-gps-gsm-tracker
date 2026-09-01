@@ -48,7 +48,7 @@ void button_interrupt_init(void) {
 }
 
 void power_btn_pressed(void) {
-    
+    display_state = DISPLAY_READY;
 }
 
 void distress_btn_pressed(void){
