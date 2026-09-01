@@ -52,8 +52,7 @@ void power_btn_pressed(void) {
 }
 
 void distress_btn_pressed(void){
-    OLED_DrawString(10, 20, "SOS");
-    ssd1306_update_display();
+    
 }
 
 // interrupt handlers
