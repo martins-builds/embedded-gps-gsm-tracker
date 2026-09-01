@@ -6,7 +6,7 @@
 #include <stdint.h>
 
 typedef enum { DISPLAY_NORMAL, DISPLAY_SOS, DISPLAY_READY } DisplayState_t;
-extern volatile DisplayState_t display_state = DISPLAY_NORMAL;
+extern volatile DisplayState_t display_state;
 
 
 void i2c_init(void);
