@@ -5,6 +5,10 @@
 #include "font5x8.h"
 #include <stdint.h>
 
+typedef enum { DISPLAY_NORMAL, DISPLAY_SOS, DISPLAY_READY } DisplayState_t;
+volatile DisplayState_t display_state = DISPLAY_NORMAL;
+
+
 void i2c_init(void);
 void OLED_DrawPixel(int16_t x, int16_t y, uint8_t color);
 void OLED_DrawChar(int16_t x, int16_t y, char c);
