@@ -2,6 +2,9 @@
 #include <stdint.h>
 #include <string.h>
 
+typedef enum { DISPLAY_NORMAL, DISPLAY_SOS, DISPLAY_READY } DisplayState_t;
+volatile DisplayState_t display_state = DISPLAY_NORMAL;
+
 uint8_t framebuffer[1024];
 
 // List of initialization commands for a standard 128x64 OLED
