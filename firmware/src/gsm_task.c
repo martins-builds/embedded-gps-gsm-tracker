@@ -14,7 +14,7 @@ void uart3_init(void){
     GPIOC->MODER &= ~((1 << 8) | (1 << 10));
 
     GPIOC->AFRL &= ~((0xF << 16) | (0xF << 20));   // clear both 4-bit fields first
-    GPIOC->AFRL |=  ((7 << 16) | (7 << 20));        // AF7 for PA9, PA10
+    GPIOC->AFRL |=  ((7 << 16) | (7 << 20));        // AF7
 
     RCC->APB1ENR1 |= (1 << 18);
 

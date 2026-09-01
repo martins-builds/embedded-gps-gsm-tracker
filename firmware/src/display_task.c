@@ -51,7 +51,7 @@ const uint8_t SSD1306_Init_Sequence[] = {
 void i2c_init(void){
     // alternate function modes
     GPIOB->MODER |= ((1 << 13) | (1 << 15)); 
-    GPIOB->MODER &= ~((1 << 12) | (1 << 14));
+    GPIOB->MODER &= ~((0xF << 12) | (0xF << 14));
 
     GPIOB->OTYPER |= (1 << 6); //open drain output
     GPIOB->OTYPER |= (1 << 7);
