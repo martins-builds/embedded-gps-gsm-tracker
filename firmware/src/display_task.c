@@ -129,8 +129,19 @@ void ssd1306_update_display(void){
     i2c_write(0x3C, data_buf, 1025);
 }
 void display_task(void *pvParameters){
-    while (1){
+    while (1) {
+        switch (display_state) {
+            case DISPLAY_SOS:
+                OLED_DrawString(10, 20, "SOS");
+                break;
+            case DISPLAY_READY:
+                OLED_DrawString(10, 20, "READY");
+                break;
+            default:
+                // normal status content goes here later
+                break;
+        }
         ssd1306_update_display();
-        vTaskDelay(pdMS_TO_TICKS(1000));  // refresh once per second
+        vTaskDelay(pdMS_TO_TICKS(1000));
     }
 }
