@@ -52,7 +52,7 @@ void power_btn_pressed(void) {
 }
 
 void distress_btn_pressed(void){
-    
+    display_state = DISPLAY_SOS;
 }
 
 // interrupt handlers
