@@ -4,6 +4,8 @@
 
 void gpio_init(void){
     RCC->AHB2ENR |= (1 << 2); //gpioc enabled
+    RCC->AHB2ENR |= (1 << 0); //gpioA enabled
+    RCC->AHB2ENR |= (1 << 1); //gpioA enabled
 
     //setting PC2 and PC3 as inputs
     GPIOC->MODER &= ~(1 << 4); //PC2
