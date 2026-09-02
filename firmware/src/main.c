@@ -21,7 +21,7 @@ __attribute__((used)) void main(void){
     ssd1306_init();
 
     //create tasks
-    xTaskCreate(gsm_task, "GSM", 128, NULL, 1, NULL);
+    xTaskCreate(gsm_task, "GSM", 256, NULL, 1, NULL);
     xTaskCreate(gps_task, "GPM", 128, NULL, 1, NULL);
     xTaskCreate(display_task, "DISPLAY", 128, NULL, 1, NULL);
     vTaskStartScheduler();
