@@ -26,7 +26,6 @@ __attribute__((used)) void main(void){
     rtc_init();
     gsm_task_init();
     ssd1306_init();
-
     //create tasks
     xTaskCreate(gsm_task, "GSM", 256, NULL, 1, NULL);
     xTaskCreate(gps_task, "GPM", 128, NULL, 1, NULL);
