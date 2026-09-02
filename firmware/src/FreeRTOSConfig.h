@@ -54,4 +54,7 @@
 #define xPortPendSVHandler  PendSV_Handler
 #define xPortSysTickHandler SysTick_Handler
 
+#define configCHECK_FOR_STACK_OVERFLOW    2
+#define configASSERT(x) if((x) == 0) { taskDISABLE_INTERRUPTS(); for(;;); }
+
 #endif /* FREERTOS_CONFIG_H */
