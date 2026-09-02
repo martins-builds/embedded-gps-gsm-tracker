@@ -8,6 +8,13 @@
 #include "power.h"
 #include "FreeRTOS.h"
 
+void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName){
+    (void)xTask;
+    (void)pcTaskName;
+    taskDISABLE_INTERRUPTS();
+    for(;;);
+}
+
 __attribute__((used)) void main(void){
     //initializations
     clock_init();
