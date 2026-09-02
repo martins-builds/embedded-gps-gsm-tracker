@@ -4,7 +4,6 @@
 #include <stdio.h>
 
 static uint16_t gsm_rx_index = 0;
-volatile uint8_t gsm_response_ready;
 SemaphoreHandle_t gsm_response_sem;
 char gsm_rx_buffer[GSM_BUF_SIZE];
 

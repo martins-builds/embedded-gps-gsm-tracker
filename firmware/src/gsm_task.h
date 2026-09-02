@@ -9,7 +9,6 @@
 
 #define GSM_BUF_SIZE 200
 extern char gsm_rx_buffer[GSM_BUF_SIZE];
-extern volatile uint8_t gsm_response_ready;
 extern SemaphoreHandle_t gsm_response_sem;
 extern GPS_Data_t gps_data;
 
