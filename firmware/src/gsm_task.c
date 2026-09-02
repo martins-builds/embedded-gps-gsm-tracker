@@ -67,6 +67,7 @@ void uart3_send_string(const char *str){
 }
 void gsm_send_command(const char *cmd){
     gsm_rx_index = 0;
+    gsm_rx_buffer[0] = '\0';
     uart3_send_string(cmd);
     uart3_send_string("\r\n");
 }
