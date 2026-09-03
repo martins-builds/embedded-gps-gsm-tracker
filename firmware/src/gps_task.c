@@ -26,6 +26,7 @@ void gps_parse_gprmc(const char *sentence, GPS_Data_t *result){
     
 
     result->valid = (fields[2][0] == 'A') ? 1 : 0;
+    if (!result->valid) return;  // bail before touching empty lat/lon fields
 
     // fields[1] = time "HHMMSS"
     char time_str[3];
