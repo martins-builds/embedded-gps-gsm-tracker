@@ -19,6 +19,11 @@ void gps_parse_gprmc(const char *sentence, GPS_Data_t *result){
         i++;
         token = strtok(NULL, ",");
     }
+    if (!(strcmp(fields[0], "$GPRMC") == 0 || strcmp(fields[0], "$GPRMC") == 0))
+    {
+        return;
+    }
+    
 
     result->valid = (fields[2][0] == 'A') ? 1 : 0;
 
