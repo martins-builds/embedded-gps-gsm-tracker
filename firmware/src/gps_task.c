@@ -50,7 +50,7 @@ void gps_parse_gprmc(const char *sentence, GPS_Data_t *result){
     result->latitude = lat_deg + (lat_min / 60.0f);
     if (fields[4][0] == 'S') result->latitude = -result->latitude;
 
-    
+    // fields[5] = longitude "DDDMM.MMMM", fields[6] = hemisphere E/W
     char lon_deg_str[4] = { fields[5][0], fields[5][1], fields[5][2], '\0' };
     float lon_deg = atof(lon_deg_str);
     float lon_min = atof(&fields[5][3]);   // rest of string from index 3 onward
