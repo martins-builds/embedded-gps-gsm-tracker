@@ -110,6 +110,8 @@ void gsm_send_location(GPS_Data_t *gps){
     gsm_send_and_wait("AT+HTTPACTION=1", 3);
 }
 void gsm_task(void *pvParameters){
+    xSemaphoreTake(gps_data_mutex, portMAX_DELAY);
+    
     while (1) {
         if (gps_data.valid) {
             if (!gsm_send_and_wait("AT", 3)) { /* handle failure */ }
