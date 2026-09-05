@@ -126,7 +126,7 @@ void gsm_task(void *pvParameters){
             if (!gsm_send_and_wait("AT+HTTPINIT", 3)) { /* handle failure */ }
             if (!gsm_send_and_wait("AT+HTTPPARA=\"CID\",1", 3)) { /* handle failure */ }
 
-            gsm_send_location(&gps_data);
+            gsm_send_location(&gps_data_copy);
 
             if (!gsm_send_and_wait("AT+HTTPREAD", 3)) { /* handle failure */ }
         }
