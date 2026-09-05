@@ -4,6 +4,7 @@
 #include "stm32l476re.h"
 #include "core_cm4.h"
 #include "FreeRTOS.h"
+#include "semphr.h"
 
 typedef struct{
     float latitude;
@@ -16,7 +17,7 @@ typedef struct{
 extern char gps_rx_buffer[GPS_BUF_SIZE];
 extern volatile uint8_t gps_line_ready;
 extern GPS_Data_t gps_data;
-extern MutexHandle_t gps_data_mutex;
+extern SemaphoreHandle_t gps_data_mutex;
 
 void gps_parse_gprmc(const char *sentence, GPS_Data_t *result);
 void uart1_init(void);
