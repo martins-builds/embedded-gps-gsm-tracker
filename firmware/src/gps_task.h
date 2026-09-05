@@ -3,6 +3,7 @@
 
 #include "stm32l476re.h"
 #include "core_cm4.h"
+#include "FreeRTOS.h"
 
 typedef struct{
     float latitude;
