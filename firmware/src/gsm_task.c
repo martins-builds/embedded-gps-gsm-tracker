@@ -6,7 +6,6 @@
 static uint16_t gsm_rx_index = 0;
 SemaphoreHandle_t gsm_response_sem;
 char gsm_rx_buffer[GSM_BUF_SIZE];
-GPS_Data_t gps_data_copy;
 
 void uart3_init(void){
     // alternate function modes
@@ -111,11 +110,12 @@ void gsm_send_location(GPS_Data_t *gps){
     gsm_send_and_wait("AT+HTTPACTION=1", 3);
 }
 void gsm_task(void *pvParameters){
-    xSemaphoreTake(gps_data_mutex, portMAX_DELAY);
-    gps_data_copy = gps_data;
-    xSemaphoreGive(gps_data_mutex);
-
     while (1) {
+        GPS_Data_t gps_data_copy;
+        xSemaphoreTake(gps_data_mutex, portMAX_DELAY);
+        gps_data_copy = gps_data;
+        xSemaphoreGive(gps_data_mutex);
+
         if (gps_data_copy.valid) {
             if (!gsm_send_and_wait("AT", 3)) { /* handle failure */ }
             if (!gsm_send_and_wait("AT+CPIN?", 3)) { /* handle failure */ }

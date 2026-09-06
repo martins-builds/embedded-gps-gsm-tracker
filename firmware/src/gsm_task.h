@@ -10,7 +10,6 @@
 #define GSM_BUF_SIZE 200
 extern char gsm_rx_buffer[GSM_BUF_SIZE];
 extern SemaphoreHandle_t gsm_response_sem;
-extern GPS_Data_t gps_data;
 
 void uart3_init(void);
 void gsm_task_init(void);

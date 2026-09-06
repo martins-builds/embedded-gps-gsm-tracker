@@ -8,8 +8,6 @@
 #include "power.h"
 #include "FreeRTOS.h"
 
-SemaphoreHandle_t gps_data_mutex = NULL;
-
 void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName){
     (void)xTask;
     (void)pcTaskName;

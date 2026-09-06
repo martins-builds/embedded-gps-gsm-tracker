@@ -100,7 +100,7 @@ void gps_task(void *pvParameters){
     while (1) {
         xSemaphoreTake(gps_data_mutex, portMAX_DELAY);
         gps_process();
-        vTaskDelay(pdMS_TO_TICKS(100));  // yield to other tasks periodically
         xSemaphoreGive(gps_data_mutex);
+        vTaskDelay(pdMS_TO_TICKS(100));  // yield to other tasks periodically
     }
 }
