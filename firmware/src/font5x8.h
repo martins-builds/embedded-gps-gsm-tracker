@@ -1,6 +1,8 @@
 #ifndef FONT5X8_H
 #define FONT5X8_H
 
+#include <stdint.h>
+
 /*
  * Complete 5x8 ASCII Font Table (0-127)
  * Format: Column-Major (5 bytes per character, 8 bits high)
