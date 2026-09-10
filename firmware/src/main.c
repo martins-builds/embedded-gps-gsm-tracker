@@ -1,3 +1,4 @@
+#include "FreeRTOS.h"
 #include "task.h"
 #include "gps_task.h"
 #include "gsm_task.h"
@@ -6,7 +7,6 @@
 #include "display_task.h"
 #include "rtc.h"
 #include "power.h"
-#include "FreeRTOS.h"
 
 void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName){
     (void)xTask;
