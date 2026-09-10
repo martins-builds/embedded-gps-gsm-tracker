@@ -7,6 +7,7 @@
 #include "FreeRTOS.h"
 #include "semphr.h"
 #include "gps_task.h"
+#include "display_task.h"
 
 #define GSM_BUF_SIZE 200
 extern char gsm_rx_buffer[GSM_BUF_SIZE];
