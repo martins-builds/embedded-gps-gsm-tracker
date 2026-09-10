@@ -117,9 +117,9 @@ void gsm_task(void *pvParameters){
         xSemaphoreGive(gps_data_mutex);
 
         if (gps_data_copy.valid) {
-            if (!gsm_send_and_wait("AT", 3)) { /* handle failure */ }
-            if (!gsm_send_and_wait("AT+CPIN?", 3)) { /* handle failure */ }
-            if (!gsm_send_and_wait("AT+CREG?", 3)) { /* handle failure */ }
+            if (!gsm_send_and_wait("AT", 3)) { display_state = DISPLAY_SOS }
+            if (!gsm_send_and_wait("AT+CPIN?", 3)) { display_state = DISPLAY_SOS }
+            if (!gsm_send_and_wait("AT+CREG?", 3)) { display_state = DISPLAY_SOS }
             if (!gsm_send_and_wait("AT+CGATT=1", 3)) { /* handle failure */ }
             if (!gsm_send_and_wait("AT+SAPBR=3,1,\"Contype\",\"GPRS\"", 3)) { /* handle failure */ }
             if (!gsm_send_and_wait("AT+SAPBR=1,1", 3)) { /* handle failure */ }
