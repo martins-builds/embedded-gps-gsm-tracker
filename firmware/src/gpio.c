@@ -59,14 +59,26 @@ void distress_btn_pressed(void){
 }
 
 // interrupt handlers
-void EXTI3_IRQHandler(void){
-    // clear the pending flag first
-    EXTI->PR1 = (1 << 3);
-    power_btn_pressed();
-}
-void EXTI2_IRQHandler(void){
-    // clear the pending flag first
-   EXTI->PR1 = (1 << 2);
-   distress_btn_pressed();
+void EXTI3_IRQHandler(void) {
+    EXTI->PR1 = (1 << 3);  // clear pending flag first — good
+
+    static TickType_t last_press = 0;
+    TickType_t now = xTaskGetTickCountFromISR();
+
+    if ((now - last_press) > pdMS_TO_TICKS(50)) {
+        last_press = now;
+        power_btn_pressed();
+    }
 }
 
+void EXTI2_IRQHandler(void) {
+    EXTI->PR1 = (1 << 2);
+
+    static TickType_t last_press = 0;
+    TickType_t now = xTaskGetTickCountFromISR();
+
+    if ((now - last_press) > pdMS_TO_TICKS(50)) {
+        last_press = now;
+        distress_btn_pressed();
+    }
+}

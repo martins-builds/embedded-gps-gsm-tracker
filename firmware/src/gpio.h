@@ -1,6 +1,7 @@
 #ifndef GPIO_H
 #define GPIO_H
 
+#include "FreeRTOS.h"
 #include "stm32l476re.h"
 
 void gpio_init(void);
