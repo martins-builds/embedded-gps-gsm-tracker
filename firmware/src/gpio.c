@@ -22,7 +22,7 @@ void gpio_init(void){
 }
 
 //interrupt functions
-void button_interrupt_init(void) {
+void button_interrupt_init(void){
     RCC->AHB2ENR |= (1 << 2);  // GPIOC clock (if not already enabled elsewhere)
 
     // route EXTI2 -> PC2 (bits 11:8 = 0010 = "C")
@@ -50,7 +50,7 @@ void button_interrupt_init(void) {
     NVIC->ISER[0] |= (1 << 9);   // enable IRQ9 = EXTI3
 }
 
-void power_btn_pressed(void) {
+void power_btn_pressed(void){
     display_state = DISPLAY_READY;
 }
 
@@ -59,25 +59,25 @@ void distress_btn_pressed(void){
 }
 
 // interrupt handlers
-void EXTI3_IRQHandler(void) {
+void EXTI3_IRQHandler(void){
     EXTI->PR1 = (1 << 3);  // clear pending flag first — good
 
     static TickType_t last_press = 0;
-    TickType_t now = xTaskGetTickCountFromISR();
+    TickType_t now = xTaskGetTickCountFromISR(); //tick from rtos
 
-    if ((now - last_press) > pdMS_TO_TICKS(50)) {
+    if ((now - last_press) > pdMS_TO_TICKS(50)){
         last_press = now;
         power_btn_pressed();
     }
 }
 
-void EXTI2_IRQHandler(void) {
+void EXTI2_IRQHandler(void){
     EXTI->PR1 = (1 << 2);
 
     static TickType_t last_press = 0;
     TickType_t now = xTaskGetTickCountFromISR();
 
-    if ((now - last_press) > pdMS_TO_TICKS(50)) {
+    if ((now - last_press) > pdMS_TO_TICKS(50)){
         last_press = now;
         distress_btn_pressed();
     }
