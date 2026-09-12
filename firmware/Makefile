@@ -13,6 +13,7 @@ C_SOURCES = src/main.c \
             src/clock.c \
             src/rtc.c \
             src/power.c \
+            src/font5x8.c \
             $(FREERTOS)/tasks.c \
             $(FREERTOS)/queue.c \
             $(FREERTOS)/list.c \
