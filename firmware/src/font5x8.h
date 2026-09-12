@@ -2,7 +2,7 @@
 #define FONT5X8_H
 
 #include <stdint.h>
-
+extern const unsigned char font5x8[128][5];
 /*
  * Complete 5x8 ASCII Font Table (0-127)
  * Format: Column-Major (5 bytes per character, 8 bits high)
