@@ -2,6 +2,7 @@
 #define DISPLAY_TASK_H
 
 #include "FreeRTOS.h"
+#include "task.h"
 #include "stm32l476re.h"
 #include "font5x8.h"
 #include <stdint.h>
