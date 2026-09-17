@@ -51,7 +51,7 @@ const uint8_t SSD1306_Init_Sequence[] = {
 void i2c_init(void){
     // alternate function modes
     GPIOB->MODER |= ((1 << 13) | (1 << 15)); 
-    GPIOB->MODER &= ~((0xF << 12) | (0xF << 14));
+    GPIOB->MODER &= ~((1 << 12) | (1 << 14));
 
     GPIOB->OTYPER |= (1 << 6); //open drain output
     GPIOB->OTYPER |= (1 << 7);
@@ -128,6 +128,8 @@ void ssd1306_update_display(void){
 }
 void display_task(void *pvParameters){
     while (1) {
+        memset(framebuffer, 0, 1024); //clear before drawing
+
         switch (display_state) {
             case DISPLAY_SOS:
                 OLED_DrawString(10, 20, "SOS");
