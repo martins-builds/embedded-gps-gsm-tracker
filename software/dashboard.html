@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Child tracker</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #e6eeea;
+    --panel: #f6faf8;
+    --ink: #12262e;
+    --muted: #4c646d;
+    --line: #c3d2cb;
+    --online: #1d7656;
+    --delayed: #9a6200;
+    --offline: #5f6d75;
+    --sos: #c4261d;
+    --trail: #2a5c7a;
+    --font: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body { font-family: var(--font); color: var(--ink); background: var(--bg); line-height: 1.45; }
+  .app { display: grid; grid-template-columns: 22rem 1fr; height: 100%; }
+  .panel { background: var(--panel); border-right: 1px solid var(--line); overflow-y: auto; display: flex; flex-direction: column; }
+  .panel > * { padding-left: 1.4rem; padding-right: 1.4rem; }
+  header { padding-top: 1.2rem; padding-bottom: .4rem; }
+  h1 { font-size: 1.05rem; margin: 0; font-weight: 700; color: var(--muted); }
+  h2 { font-size: 1rem; margin: 0 0 .6rem; }
+
+  /* The one memorable element: the status sentence */
+  .status { padding-top: .6rem; padding-bottom: 1.4rem; border-bottom: 1px solid var(--line); }
+  .state { margin: 0; font-size: 2.3rem; line-height: 1.1; font-weight: 700; letter-spacing: -.01em; }
+  .state::before { content: ""; display: inline-block; width: .55em; height: .55em; border-radius: 50%; margin-right: .35em; background: currentColor; vertical-align: .05em; }
+  .status[data-conn="online"] .state { color: var(--online); }
+  .status[data-conn="delayed"] .state { color: var(--delayed); }
+  .status[data-conn="offline"] .state { color: var(--offline); }
+  .status[data-conn="server"] .state { color: var(--offline); }
+  .seen { margin: .5rem 0 0; color: var(--muted); }
+  .coords { margin: .2rem 0 0; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+  .sos { margin: 0; padding-top: 1rem; padding-bottom: 1rem; background: var(--sos); color: #fff; }
+  .sos[hidden] { display: none; }
+  .sos strong { display: block; font-size: 1.25rem; }
+  .sos p { margin: .2rem 0 .7rem; }
+  .sos button { font: inherit; font-weight: 700; color: var(--sos); background: #fff; border: 0; border-radius: 4px; padding: .45rem .8rem; cursor: pointer; }
+
+  .history { padding-top: 1.2rem; padding-bottom: 1rem; flex: 1; }
+  .trail { list-style: none; margin: 0; padding: 0; }
+  .trail li { border-top: 1px solid var(--line); }
+  .trail button { width: 100%; text-align: left; font: inherit; color: inherit; background: none; border: 0; padding: .6rem 0; cursor: pointer; display: flex; justify-content: space-between; gap: 1rem; }
+  .trail button:hover { background: #ebf3ef; }
+  .trail .when { font-weight: 700; }
+  .trail .where { color: var(--muted); font-variant-numeric: tabular-nums; }
+  .empty { color: var(--muted); }
+
+  footer { padding-top: .9rem; padding-bottom: 1rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; display: flex; justify-content: space-between; align-items: center; gap: .5rem; }
+  footer button { font: inherit; color: var(--trail); background: none; border: 1px solid var(--trail); border-radius: 4px; padding: .3rem .6rem; cursor: pointer; }
+
+  #map { height: 100%; }
+  button:focus-visible { outline: 3px solid #1a73e8; outline-offset: 2px; }
+
+  .pin-latest { width: 22px; height: 22px; border-radius: 50%; background: var(--trail); border: 3px solid #fff; box-shadow: 0 0 0 1px var(--trail); }
+  .pin-sos { width: 26px; height: 26px; border-radius: 50%; background: var(--sos); border: 3px solid #fff; box-shadow: 0 0 0 1px var(--sos); animation: pulse 1.6s ease-out infinite; }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(196,38,29,.55); } 100% { box-shadow: 0 0 0 18px rgba(196,38,29,0); } }
+  @media (prefers-reduced-motion: reduce) { .pin-sos { animation: none; } }
+
+  @media (max-width: 760px) {
+    .app { grid-template-columns: 1fr; grid-template-rows: 55% 45%; }
+    #map { order: -1; }
+    .panel { border-right: 0; border-top: 1px solid var(--line); }
+    .state { font-size: 1.8rem; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="panel">
+    <header><h1 id="device">Child tracker</h1></header>
+
+    <section class="status" id="status" data-conn="offline" aria-live="polite">
+      <p class="state" id="state">Loading</p>
+      <p class="seen" id="seen"></p>
+      <p class="coords" id="coords"></p>
+    </section>
+
+    <section class="sos" id="sos" role="alert" hidden>
+      <strong>SOS pressed</strong>
+      <p id="sosWhen"></p>
+      <button type="button" id="sosShow">Show on map</button>
+    </section>
+
+    <section class="history">
+      <h2>Recent positions</h2>
+      <ol class="trail" id="trail"></ol>
+      <p class="empty" id="trailEmpty" hidden>No positions received yet. The device sends one every few minutes once it has a GPS fix.</p>
+    </section>
+
+    <footer>
+      <span id="foot"></span>
+      <button type="button" id="recenter">Center on latest</button>
+    </footer>
+  </aside>
+  <main id="map" aria-label="Map of the tracker's position"></main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<script>
+"use strict";
+
+/* ---------- Settings ---------- */
+const CONFIG = {
+  pollMs: 30000,          // how often the page asks the server for new data
+  reportEveryMin: 5,      // how often the device is meant to report
+  historyLimit: 100,
+  apiBase: ""             // "" = same host that served this page
+};
+
+/* Add ?mock to the URL to preview with fake data (no server needed).
+   ?mock=sos shows an SOS alert. ?mock=offline shows a long-silent device. ?mock=down simulates an unreachable server. */
+const MOCK = new URLSearchParams(location.search).get("mock");
+const useMock = new URLSearchParams(location.search).has("mock");
+
+/* ---------- API contract (the Flask server should provide these) ----------
+   GET /api/location/latest          -> {"device_id","lat","lon","timestamp"}      (404 if none yet)
+   GET /api/location/history?limit=N -> [{"lat","lon","timestamp"}, ...]           (any order)
+   GET /api/sos/latest               -> {"lat","lon","timestamp","active":true|false}   (404 if never pressed)
+   "timestamp" must be something new Date() can parse, ideally ISO 8601 with a timezone,
+   e.g. "2026-10-17T14:05:00Z".
+---------------------------------------------------------------------------- */
+
+async function getJSON(path) {
+  const res = await fetch(CONFIG.apiBase + path, { cache: "no-store" });
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error(path + " returned " + res.status);
+  return res.json();
+}
+
+function mockData() {
+  if (MOCK === "down") throw new Error("mock: server unreachable");
+  const now = Date.now();
+  const base = { lat: 6.3350, lon: 5.6270 };
+  const ageMin = MOCK === "offline" ? 95 : 2;
+  const history = [];
+  for (let i = 12; i >= 0; i--) {
+    history.push({
+      lat: base.lat + (12 - i) * 0.0006,
+      lon: base.lon + Math.sin((12 - i) / 2) * 0.0008,
+      timestamp: new Date(now - (ageMin + i * 5) * 60000).toISOString()
+    });
+  }
+  const last = history[history.length - 1];
+  const sos = MOCK === "sos"
+    ? { lat: last.lat, lon: last.lon, timestamp: last.timestamp, active: true }
+    : null;
+  return { latest: { device_id: "tracker-01", ...last }, history, sos };
+}
+
+async function loadAll() {
+  if (useMock) return mockData();
+  const [latest, history, sos] = await Promise.all([
+    getJSON("/api/location/latest"),
+    getJSON("/api/location/history?limit=" + CONFIG.historyLimit),
+    getJSON("/api/sos/latest")
+  ]);
+  return { latest, history: history || [], sos };
+}
+
+/* ---------- Map ---------- */
+const map = L.map("map", { zoomControl: true }).setView([6.335, 5.627], 13);
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  maxZoom: 19,
+  attribution: "&copy; OpenStreetMap contributors"
+}).addTo(map);
+
+const trailLine = L.polyline([], { color: "#2a5c7a", weight: 3, opacity: .7 }).addTo(map);
+const trailDots = L.layerGroup().addTo(map);
+let latestMarker = null;
+let sosMarker = null;
+let hasFitted = false;
+let lastLatest = null;
+let lastSos = null;
+
+function icon(cls, size) {
+  return L.divIcon({ className: "", html: '<div class="' + cls + '"></div>', iconSize: [size, size], iconAnchor: [size / 2, size / 2] });
+}
+
+/* ---------- Time helpers ---------- */
+function ago(ms) {
+  const s = Math.max(0, Math.round(ms / 1000));
+  if (s < 60) return "just now";
+  const m = Math.round(s / 60);
+  if (m < 60) return m + (m === 1 ? " minute ago" : " minutes ago");
+  const h = Math.floor(m / 60);
+  if (h < 24) return h + (h === 1 ? " hour ago" : " hours ago");
+  const d = Math.floor(h / 24);
+  return d + (d === 1 ? " day ago" : " days ago");
+}
+function clock(ts) {
+  return new Date(ts).toLocaleString([], { weekday: "short", hour: "2-digit", minute: "2-digit" });
+}
+function fmt(n) { return Number(n).toFixed(5); }
+
+/* ---------- Rendering ---------- */
+const el = id => document.getElementById(id);
+
+function connectionOf(latest) {
+  const age = Date.now() - new Date(latest.timestamp).getTime();
+  const every = CONFIG.reportEveryMin * 60000;
+  if (age <= every * 2) return ["online", "Online"];
+  if (age <= every * 6) return ["delayed", "Delayed"];
+  return ["offline", "Offline"];
+}
+
+function renderStatus() {
+  if (!lastLatest) return;
+  const [conn, word] = connectionOf(lastLatest);
+  el("status").dataset.conn = conn;
+  el("state").textContent = word;
+  el("seen").textContent = "Last position " + ago(Date.now() - new Date(lastLatest.timestamp).getTime());
+  el("coords").textContent = fmt(lastLatest.lat) + ", " + fmt(lastLatest.lon);
+  if (lastSos && lastSos.active) {
+    el("sosWhen").textContent = "Pressed " + ago(Date.now() - new Date(lastSos.timestamp).getTime()) + " (" + clock(lastSos.timestamp) + ")";
+  }
+}
+
+function render(data) {
+  const { latest, history, sos } = data;
+  lastLatest = latest;
+  lastSos = sos;
+
+  if (!latest) {
+    el("status").dataset.conn = "offline";
+    el("state").textContent = "Waiting for device";
+    el("seen").textContent = "No position has arrived yet.";
+    el("coords").textContent = "";
+    el("trailEmpty").hidden = false;
+    return;
+  }
+
+  el("device").textContent = latest.device_id || "Child tracker";
+
+  /* SOS */
+  const sosActive = !!(sos && sos.active);
+  el("sos").hidden = !sosActive;
+  if (sosMarker) { map.removeLayer(sosMarker); sosMarker = null; }
+  if (sosActive) {
+    sosMarker = L.marker([sos.lat, sos.lon], { icon: icon("pin-sos", 26), zIndexOffset: 1000 }).addTo(map);
+  }
+
+  /* Trail */
+  const pts = history.slice().sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+  trailLine.setLatLngs(pts.map(p => [p.lat, p.lon]));
+  trailDots.clearLayers();
+  pts.forEach(p => {
+    L.circleMarker([p.lat, p.lon], { radius: 4, color: "#2a5c7a", fillColor: "#f6faf8", fillOpacity: 1, weight: 2 }).addTo(trailDots);
+  });
+
+  /* Latest marker */
+  if (latestMarker) map.removeLayer(latestMarker);
+  latestMarker = L.marker([latest.lat, latest.lon], { icon: icon("pin-latest", 22) }).addTo(map);
+
+  /* List, newest first */
+  const list = el("trail");
+  list.textContent = "";
+  el("trailEmpty").hidden = pts.length > 0;
+  pts.slice().reverse().slice(0, 12).forEach(p => {
+    const li = document.createElement("li");
+    const b = document.createElement("button");
+    b.type = "button";
+    const when = document.createElement("span");
+    when.className = "when";
+    when.textContent = clock(p.timestamp);
+    const where = document.createElement("span");
+    where.className = "where";
+    where.textContent = fmt(p.lat) + ", " + fmt(p.lon);
+    b.append(when, where);
+    b.addEventListener("click", () => map.flyTo([p.lat, p.lon], Math.max(map.getZoom(), 17)));
+    li.append(b);
+    list.append(li);
+  });
+
+  if (!hasFitted) {
+    hasFitted = true;
+    centerOnLatest();
+  }
+  renderStatus();
+}
+
+function centerOnLatest() {
+  if (!lastLatest) return;
+  const pts = trailLine.getLatLngs();
+  if (pts.length > 1) map.fitBounds(trailLine.getBounds().pad(0.3), { maxZoom: 17 });
+  else map.setView([lastLatest.lat, lastLatest.lon], 16);
+}
+
+/* ---------- Polling ---------- */
+async function refresh() {
+  try {
+    render(await loadAll());
+    el("foot").textContent = "Checked " + new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  } catch (err) {
+    console.error(err);
+    el("status").dataset.conn = "server";
+    el("state").textContent = "Can't reach server";
+    el("seen").textContent = "The tracker may be fine. This page can't load its data. Retrying automatically.";
+    el("coords").textContent = "";
+  }
+}
+
+el("recenter").addEventListener("click", centerOnLatest);
+el("sosShow").addEventListener("click", () => {
+  if (lastSos) map.flyTo([lastSos.lat, lastSos.lon], 18);
+});
+
+refresh();
+setInterval(refresh, CONFIG.pollMs);
+setInterval(renderStatus, 15000);   // keep "x minutes ago" fresh between polls
+</script>
+</body>
+</html>
