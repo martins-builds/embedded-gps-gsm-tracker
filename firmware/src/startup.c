@@ -14,6 +14,8 @@ void PendSV_Handler(void);
 void SysTick_Handler(void);
 void EXTI3_IRQHandler(void);
 void EXTI2_IRQHandler(void);
+void USART1_IRQHandler(void);
+void USART3_IRQHandler(void);
 
 void Reset_Handler(void) {
     uint32_t *src = &_sidata;
@@ -99,9 +101,9 @@ void (*const vector_table[])(void) = {
     Default_Handler,            // 50  IRQ34 I2C2_ER
     Default_Handler,            // 51  IRQ35 SPI1
     Default_Handler,            // 52  IRQ36 SPI2
-    Default_Handler,            // 53  IRQ37 USART1        -> GPS module
+    USART1_IRQHandler,            // 53  IRQ37 USART1        -> GPS module
     Default_Handler,            // 54  IRQ38 USART2
-    Default_Handler,            // 55  IRQ39 USART3        -> GSM/SIM800L module
+    USART3_IRQHandler,            // 55  IRQ39 USART3        -> GSM/SIM800L module
     Default_Handler,            // 56  IRQ40 EXTI15_10
     Default_Handler,            // 57  IRQ41 RTC_Alarm
     Default_Handler,            // 58  IRQ42 DFSDM1_FLT3
