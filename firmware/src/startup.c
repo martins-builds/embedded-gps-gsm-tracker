@@ -12,6 +12,8 @@ void Default_Handler(void);
 void SVC_Handler(void);
 void PendSV_Handler(void);
 void SysTick_Handler(void);
+void EXTI3_IRQHandler(void);
+void EXTI2_IRQHandler(void);
 
 void Reset_Handler(void) {
     uint32_t *src = &_sidata;
@@ -68,8 +70,8 @@ void (*const vector_table[])(void) = {
     Default_Handler,            // 21  IRQ5  RCC
     Default_Handler,            // 22  IRQ6  EXTI0
     Default_Handler,            // 23  IRQ7  EXTI1
-    Default_Handler,            // 24  IRQ8  EXTI2         -> BTN_INT_EX2 (SOS button)
-    Default_Handler,            // 25  IRQ9  EXTI3         -> BTN_PWR_EX3 (power button)
+    EXTI2_IRQHandler,            // 24  IRQ8  EXTI2         -> BTN_INT_EX2 (SOS button)
+    EXTI3_IRQHandler,            // 25  IRQ9  EXTI3         -> BTN_PWR_EX3 (power button)
     Default_Handler,            // 26  IRQ10 EXTI4
     Default_Handler,            // 27  IRQ11 DMA1_Channel1
     Default_Handler,            // 28  IRQ12 DMA1_Channel2
