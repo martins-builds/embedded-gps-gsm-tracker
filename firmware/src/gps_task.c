@@ -72,6 +72,7 @@ void uart1_init(void){
     USART1->CR1 |= (1 << 0) | (1 << 2) | (1 << 3);
 
     USART1->CR1 |= (1 << 5);      // RXNEIE - enable RX-not-empty interrupt
+    NVIC->IP[9] |= (5 << 4); // IRQ37
     NVIC->ISER[1] |= (1 << 5);   // IRQ37 = USART1
 }
 void USART1_IRQHandler(void){
