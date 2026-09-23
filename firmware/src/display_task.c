@@ -133,6 +133,10 @@ void ssd1306_update_display(void){
             i2c_write(0x3C, data_buf + offset, 254);
             offset += 254;
         }
+        else{
+            i2c_write(0x3C, data_buf + offset, chunk_len);
+            offset += chunk_len;
+        }
     }
 }
 void display_task(void *pvParameters){
