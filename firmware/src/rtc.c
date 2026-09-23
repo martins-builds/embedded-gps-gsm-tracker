@@ -1,8 +1,8 @@
 #include "rtc.h"
 
 void rtc_init(void){
-    PWR->CR1 |= (1 << 8); //backup domain
     RCC->APB1ENR1 |= (1 << 28); // power enabled
+    PWR->CR1 |= (1 << 8); //backup domain
     RCC->BDCR |= (1 << 0); //LSEON
     while (!(RCC->BDCR & (1 << 1))); //LSERDY
     RCC->BDCR |= (1 << 8); // select LSE
