@@ -46,6 +46,8 @@ void button_interrupt_init(void){
     EXTI->IMR1 |= (1 << 3);
 
     //NVIC
+    NVIC->IP[8] = (5 << 4);
+    NVIC->IP[9] = (5 << 4);
     NVIC->ISER[0] |= (1 << 8);   // enable IRQ8 = EXTI2
     NVIC->ISER[0] |= (1 << 9);   // enable IRQ9 = EXTI3
 }
