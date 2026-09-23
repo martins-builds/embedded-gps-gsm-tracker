@@ -5,6 +5,8 @@
 volatile DisplayState_t display_state = DISPLAY_NORMAL;
 uint8_t framebuffer[1024];
 uint8_t data_buf[1025];
+int chunk_len = 0;
+int offset = 0;
 
 // List of initialization commands for a standard 128x64 OLED
 const uint8_t SSD1306_Init_Sequence[] = {
@@ -124,8 +126,9 @@ void ssd1306_update_display(void){
     data_buf[0] = 0x40;                       // control byte: "this is display data"
     memcpy(&data_buf[1], framebuffer, 1024);  // copy the whole framebuffer after it
 
-    for (int i = 0; i < 1025; i+=254){
-        i2c_write(0x3C, data_buf, i);
+    for (int i = 0; i < 3; i++){
+        i2c_write(0x3C, data_buf + offset, chunk_len);
+        offset += chunk_len;
     }
 }
 void display_task(void *pvParameters){
