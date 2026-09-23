@@ -21,7 +21,7 @@ void uart3_init(void){
     USART3->CR1 |= (1 << 0) | (1 << 2) | (1 << 3);
 
     USART3->CR1 |= (1 << 5);   // RXNEIE - enable RX-not-empty interrupt
-    NVIC->IP[9] |= (5 << 28); // IRQ39
+    NVIC->IP[39] = (5 << 4); // IRQ39
     NVIC->ISER[1] |= (1 << 7);   // IRQ39 = USART3
 }
 void gsm_task_init(void){
