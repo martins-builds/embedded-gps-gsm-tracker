@@ -124,6 +124,10 @@ void ssd1306_update_display(void){
     data_buf[0] = 0x40;                       // control byte: "this is display data"
     memcpy(&data_buf[1], framebuffer, 1024);  // copy the whole framebuffer after it
 
+    for (int i = 0; i < 1025; i+254){
+        /* code */
+    }
+    
     i2c_write(0x3C, data_buf, 1025);
 }
 void display_task(void *pvParameters){
