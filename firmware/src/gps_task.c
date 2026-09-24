@@ -76,21 +76,25 @@ void uart1_init(void){
     NVIC->ISER[1] |= (1 << 5);   // IRQ37 = USART1
 }
 void USART1_IRQHandler(void){
-    while (!(USART1->ISR & (1 << 5))); //RXNE
-    uint8_t byte = USART1->RDR;   // reading RDR also clears RXNE automatically
+    if (USART1->ISR & (1 << 5)){ // RXNE set — a real byte is here
+        uint8_t byte = USART1->RDR;   // reading RDR also clears RXNE automatically
 
-    if (byte == '\n') {
-        gps_rx_buffer[gps_rx_index] = '\0';   // null-terminate the completed line
-        gps_line_ready = 1;
-        gps_rx_index = 0;                      // reset for the next sentence
-    }
-    else{
-        if (gps_rx_index < GPS_BUF_SIZE - 1) {
-            gps_rx_buffer[gps_rx_index] = byte;
-            gps_rx_index++;
+        if (byte == '\n') {
+            gps_rx_buffer[gps_rx_index] = '\0';   // null-terminate the completed line
+            gps_line_ready = 1;
+            gps_rx_index = 0;                      // reset for the next sentence
         }
-        // else: buffer full, byte silently dropped (overflow guard)
+        else{
+            if (gps_rx_index < GPS_BUF_SIZE - 1) {
+                gps_rx_buffer[gps_rx_index] = byte;
+                gps_rx_index++;
+            }
+            // else: buffer full, byte silently dropped (overflow guard)
+        }
+    } else {
+        // clear whatever error flag fired instead
     }
+    
 }
 void gps_process(void){
     if (gps_line_ready) {
