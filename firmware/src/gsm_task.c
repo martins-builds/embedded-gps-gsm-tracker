@@ -39,21 +39,25 @@ uint8_t buffer_ends_with(char *buf, uint16_t index, const char *suffix){
     return 1;
 }
 void USART3_IRQHandler(void){
-    while (!(USART3->ISR & (1 << 5))); //RXNE
-    uint8_t byte = USART3->RDR;
+    if(USART1->ISR & (1 << 5)){ // RXNE set — a real byte is here
+        uint8_t byte = USART3->RDR;
 
-    if (gsm_rx_index < GSM_BUF_SIZE - 1) {
-        gsm_rx_buffer[gsm_rx_index] = byte;
-        gsm_rx_index++;
-        gsm_rx_buffer[gsm_rx_index] = '\0';
+        if (gsm_rx_index < GSM_BUF_SIZE - 1) {
+            gsm_rx_buffer[gsm_rx_index] = byte;
+            gsm_rx_index++;
+            gsm_rx_buffer[gsm_rx_index] = '\0';
 
-        if (buffer_ends_with(gsm_rx_buffer, gsm_rx_index, "OK\r\n") ||
-            buffer_ends_with(gsm_rx_buffer, gsm_rx_index, "ERROR\r\n")) {
-            BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-            xSemaphoreGiveFromISR(gsm_response_sem, &xHigherPriorityTaskWoken);
-            gsm_rx_index = 0;
-            portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+            if (buffer_ends_with(gsm_rx_buffer, gsm_rx_index, "OK\r\n") ||
+                buffer_ends_with(gsm_rx_buffer, gsm_rx_index, "ERROR\r\n")) {
+                BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+                xSemaphoreGiveFromISR(gsm_response_sem, &xHigherPriorityTaskWoken);
+                gsm_rx_index = 0;
+                portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+            }
         }
+    }
+    else{
+        USART3->ICR |= (1 << 3); // ORE FLAG
     }
 }
 void uart3_send_byte(uint8_t byte){
