@@ -10,7 +10,7 @@
 #include "display_task.h"
 
 #define GSM_BUF_SIZE 200
-extern char gsm_rx_buffer[GSM_BUF_SIZE];
+extern volatile char gsm_rx_buffer[GSM_BUF_SIZE];
 extern SemaphoreHandle_t gsm_response_sem;
 
 void uart3_init(void);
