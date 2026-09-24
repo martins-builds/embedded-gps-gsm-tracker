@@ -39,6 +39,7 @@ uint8_t buffer_ends_with(char *buf, uint16_t index, const char *suffix){
     return 1;
 }
 void USART3_IRQHandler(void){
+    while (!(USART1->ISR & (1 << 5))); //RXNE
     uint8_t byte = USART3->RDR;
 
     if (gsm_rx_index < GSM_BUF_SIZE - 1) {
