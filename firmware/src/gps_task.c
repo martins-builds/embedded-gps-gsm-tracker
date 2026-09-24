@@ -93,9 +93,8 @@ void USART1_IRQHandler(void){
         }
     }
     else{
-        // clear whatever error flag fired instead
+        USART1->ICR |= (1 << 3); // ORE FLAG
     }
-    
 }
 void gps_process(void){
     if (gps_line_ready) {
