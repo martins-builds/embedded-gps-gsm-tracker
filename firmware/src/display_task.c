@@ -56,7 +56,7 @@ void i2c_init(void){
     GPIOB->OTYPER |= (1 << 6); //open drain output
     GPIOB->OTYPER |= (1 << 7);
 
-    GPIOB->AFRL &= ~((1 << 24) | (1 << 28)); //clear AF field
+    GPIOB->AFRL &= ~((0xF << 24) | (0xF << 28)); //clear AF field
     GPIOB->AFRL |=  ((4 << 24) | (4 << 28)); //set AF fields     // AF4 for PB6
 
     RCC->APB1ENR1 |= (1 << 21); // enable 12c1 for display
