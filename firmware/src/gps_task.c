@@ -76,6 +76,7 @@ void uart1_init(void){
     NVIC->ISER[1] |= (1 << 5);   // IRQ37 = USART1
 }
 void USART1_IRQHandler(void){
+    while()
     uint8_t byte = USART1->RDR;   // reading RDR also clears RXNE automatically
 
     if (byte == '\n') {
