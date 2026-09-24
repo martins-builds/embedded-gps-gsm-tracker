@@ -91,7 +91,8 @@ void USART1_IRQHandler(void){
             }
             // else: buffer full, byte silently dropped (overflow guard)
         }
-    } else {
+    }
+    else{
         // clear whatever error flag fired instead
     }
     
