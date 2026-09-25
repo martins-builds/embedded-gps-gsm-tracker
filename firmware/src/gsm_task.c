@@ -55,6 +55,12 @@ void USART3_IRQHandler(void){
                 portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
             }
         }
+        else{
+            BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+            xSemaphoreGiveFromISR(gsm_response_sem, &xHigherPriorityTaskWoken);
+            gsm_rx_index = 0;
+            strstr(, "OK")
+        }
     }
     else{
         USART3->ICR |= (1 << 3); // ORE FLAG
