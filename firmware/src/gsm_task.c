@@ -59,7 +59,9 @@ void USART3_IRQHandler(void){
             BaseType_t xHigherPriorityTaskWoken = pdFALSE;
             xSemaphoreGiveFromISR(gsm_response_sem, &xHigherPriorityTaskWoken);
             gsm_rx_index = 0;
-            strstr(, "OK")
+            portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+            gsm_rx_buffer[gsm_rx_index] = '\0';
+            strstr(gsm_rx_buffer, "OK");
         }
     }
     else{
