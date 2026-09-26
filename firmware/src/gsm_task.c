@@ -143,7 +143,7 @@ void gsm_task(void *pvParameters){
 
             if (!gsm_send_and_wait("AT+HTTPREAD", 3)) { /* handle failure */ }
             gsm_send_and_wait("AT+HTTPTERM", 3);
-            sm_send_and_wait("AT+SAPBR=0,1", 3);
+            gsm_send_and_wait("AT+SAPBR=0,1", 3);
         }
 
         vTaskDelay(pdMS_TO_TICKS(300000));  // wait ~5 minutes before next send cycle
