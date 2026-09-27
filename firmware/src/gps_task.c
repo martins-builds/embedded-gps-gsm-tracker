@@ -8,6 +8,10 @@ static uint16_t gps_rx_index = 0;
 GPS_Data_t gps_data;
 SemaphoreHandle_t gps_data_mutex = NULL;
 
+void helper(void){ // i need this function for parser
+
+}
+
 void gps_parse_gprmc(const char *sentence, GPS_Data_t *result){
     char sentence_copy[100];
     strcpy(sentence_copy, sentence);   // work on a copy, since strtok() destroys the original
