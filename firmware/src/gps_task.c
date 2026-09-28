@@ -8,8 +8,12 @@ static uint16_t gps_rx_index = 0;
 GPS_Data_t gps_data;
 SemaphoreHandle_t gps_data_mutex = NULL;
 
-void helper(char *sentence, int current_path, char field[12]){ // i need this function for parser
+void helper(char *sentence, char *current, char *fields[12]){ // i need this function for parser
+    char *p = current;
+    while(*p != '\0'){
 
+        *p = '\0';
+    }
 }
 
 void gps_parse_gprmc(const char *sentence, GPS_Data_t *result){
