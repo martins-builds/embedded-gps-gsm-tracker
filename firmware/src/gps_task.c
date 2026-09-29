@@ -16,7 +16,7 @@ void helper(char *sentence, char *current, char *fields[12]){ // i need this fun
             fields[i] = current;
             *p = '\0';
             i++;
-            current = p;
+            current = p+1;
         }
         p++;
     }
