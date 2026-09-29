@@ -20,7 +20,7 @@ extern volatile uint8_t gps_line_ready;
 extern GPS_Data_t gps_data;
 extern SemaphoreHandle_t gps_data_mutex;
 
-void helper(char *sentence, int current_path, char field[12]);
+int helper(char *sentence, char *current, char *fields[12]);
 void gps_parse_gprmc(const char *sentence, GPS_Data_t *result);
 void uart1_init(void);
 void USART1_IRQHandler(void);
