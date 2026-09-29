@@ -30,13 +30,8 @@ void gps_parse_gprmc(const char *sentence, GPS_Data_t *result){
     strcpy(sentence_copy, sentence);   // work on a copy, since strtok() destroys the original
 
     char *fields[12];
-    char *token = strtok(sentence_copy, ",");
     int i = 0;
-    while (token != NULL && i < 12){
-        fields[i] = token;
-        i++;
-        token = strtok(NULL, ",");
-    }
+    i = helper(sentence_copy, fields);
     if (i < 7) return;
     
     if (!(strcmp(fields[0], "$GPRMC") == 0 || strcmp(fields[0], "$GNRMC") == 0))
