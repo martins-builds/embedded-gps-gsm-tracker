@@ -8,7 +8,7 @@ static uint16_t gps_rx_index = 0;
 GPS_Data_t gps_data;
 SemaphoreHandle_t gps_data_mutex = NULL;
 
-int helper(char *sentence, char *current, char *fields[12]){ // i need this function for parser
+int helper(char *current, char *fields[12]){ // i need this function for parser
     int i = 0;
     char *p = current;
     while(*p != '\0'){
@@ -20,6 +20,8 @@ int helper(char *sentence, char *current, char *fields[12]){ // i need this func
         }
         p++;
     }
+    fields[i] = current;
+    i++;
     return i;
 }
 
