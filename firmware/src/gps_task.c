@@ -15,9 +15,9 @@ void helper(char *sentence, char *current, char *fields[12]){ // i need this fun
         if (*p == ','){
             fields[i] = *p;
             *p = '\0';
+            i++;
         }
         p++;
-        i++;
     }
     current = p;
 }
