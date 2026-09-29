@@ -9,14 +9,17 @@ GPS_Data_t gps_data;
 SemaphoreHandle_t gps_data_mutex = NULL;
 
 void helper(char *sentence, char *current, char *fields[12]){ // i need this function for parser
+    int i = 0;
     char *p = current;
     while(*p != '\0'){
         if (*p == ','){
-            /* code */
+            fields[i] = *p
+            *p = '\0';
         }
-        
-        *p = '\0';
+        p++;
+        i++;
     }
+    current = p;
 }
 
 void gps_parse_gprmc(const char *sentence, GPS_Data_t *result){
