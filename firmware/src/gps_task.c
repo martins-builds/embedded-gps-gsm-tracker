@@ -13,13 +13,13 @@ void helper(char *sentence, char *current, char *fields[12]){ // i need this fun
     char *p = current;
     while(*p != '\0'){
         if (*p == ','){
-            fields[i] = *p;
+            fields[i] = current;
             *p = '\0';
             i++;
+            current = p;
         }
         p++;
     }
-    current = p;
 }
 
 void gps_parse_gprmc(const char *sentence, GPS_Data_t *result){
