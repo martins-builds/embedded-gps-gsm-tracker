@@ -11,7 +11,7 @@ SemaphoreHandle_t gps_data_mutex = NULL;
 void helper(char *sentence, char *current, char *fields[12]){ // i need this function for parser
     char *p = current;
     while(*p != '\0'){
-        if (){
+        if (*p == ','){
             /* code */
         }
         
