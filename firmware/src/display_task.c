@@ -61,7 +61,7 @@ void i2c_init(void){
 
     RCC->APB1ENR1 |= (1 << 21); // enable 12c1 for display
 
-    I2C1->TIMINGR = 0x4403F4B; // not done
+    I2C1->TIMINGR = 0x4403F4B; // not done with it
     I2C1->CR1 |= (1 << 0); //periferal enable
 }
 void OLED_DrawPixel(int16_t x, int16_t y, uint8_t color) {
