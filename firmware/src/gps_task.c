@@ -94,13 +94,15 @@ void USART1_IRQHandler(void){
         uint8_t byte = USART1->RDR;   // reading RDR also clears RXNE automatically
 
         if (byte == '\n') {
-            gps_rx_buffer[gps_rx_index] = '\0';   // null-terminate the completed line
+            buf_ptr_isr[gps_rx_index] = '\0';   // null-terminate the completed line
             gps_line_ready = 1;
-            gps_rx_index = 0;                      // reset for the next sentence
+            gps_rx_index = 0;                     // reset for the next sentence
+            buf_ptr_task = gps_rx_buffer1;
+            buf_ptr_isr = gps_rx_buffer2;
         }
         else{
             if (gps_rx_index < GPS_BUF_SIZE - 1) {
-                gps_rx_buffer[gps_rx_index] = byte;
+                buf_ptr_isr[gps_rx_index] = byte;
                 gps_rx_index++;
             }
             // else: buffer full, byte silently dropped (overflow guard)
@@ -112,7 +114,7 @@ void USART1_IRQHandler(void){
 }
 void gps_process(void){
     if (gps_line_ready) {
-        gps_parse_gprmc(gps_rx_buffer, &gps_data);
+        gps_parse_gprmc(buf_ptr_isr, &gps_data);
         gps_line_ready = 0;
     }
 }
