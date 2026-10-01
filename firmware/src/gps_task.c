@@ -97,8 +97,9 @@ void USART1_IRQHandler(void){
             buf_ptr_isr[gps_rx_index] = '\0';   // null-terminate the completed line
             gps_line_ready = 1;
             gps_rx_index = 0;                     // reset for the next sentence
-            buf_ptr_task = gps_rx_buffer1;
-            buf_ptr_isr = gps_rx_buffer2;
+            char *swap = buf_ptr_task;
+            buf_ptr_task = buf_ptr_isr;
+            buf_ptr_isr = swap;
         }
         else{
             if (gps_rx_index < GPS_BUF_SIZE - 1) {
