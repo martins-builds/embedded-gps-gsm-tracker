@@ -10,7 +10,7 @@
 typedef struct{
     float latitude;
     float longitude;
-    uint8_t hours, minutes, seconds;
+    uint8_t year, month, day, hours, minutes, seconds;
     uint8_t valid;
 } GPS_Data_t;
 
