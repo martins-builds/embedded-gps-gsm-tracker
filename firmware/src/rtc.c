@@ -21,3 +21,6 @@ void rtc_init(void){
     //Re-enable write protection
     RTC->WPR = 0xFF; // write protection re-locks automatically on any non-key write
 }
+void rtc_get_date(uint8_t *year, uint8_t *month, uint8_t *day){
+    
+}
