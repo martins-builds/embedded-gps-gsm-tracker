@@ -103,10 +103,14 @@ void gsm_send_location(GPS_Data_t *gps){
     char body_cmd[150];
     char json_body[100];
 
+    uint8_t year, month, day;
+
+    rtc_get_date(&year, &month, &day);
+
     // Build the JSON body with real GPS data
     sprintf(json_body,
-        "{\"device_id\":\"MB-TRACK-01\",\"lat\":%.4f,\"lon\":%.4f,\"timestamp\":\"%04d-%02d-%02dT%02d:%02d:%02d\"}",
-        gps->latitude, gps->longitude, gps->year, gps->month, gps->day, gps->hours, gps->minutes, gps->seconds);
+        "{\"device_id\":\"MB-TRACK-01\",\"lat\":%.4f,\"lon\":%.4f,\"timestamp\":\"20%02d-%02d-%02dT%02d:%02d:%02dZ\"}",
+        gps->latitude, gps->longitude, year, gps->month, gps->day, gps->hours, gps->minutes, gps->seconds);
 
     // Set the URL (fixed endpoint, no GPS data needed here)
     gsm_send_and_wait("AT+HTTPPARA=\"URL\",\"http://yourserver.com/api/location\"", 3);
