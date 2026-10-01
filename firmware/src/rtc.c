@@ -22,5 +22,14 @@ void rtc_init(void){
     RTC->WPR = 0xFF; // write protection re-locks automatically on any non-key write
 }
 void rtc_get_date(uint8_t *year, uint8_t *month, uint8_t *day){
-    
+    uint8_t YT = (RTC->DR >> 20) & 0xF;   // bits [23:20], 4 bits wide
+    uint8_t YU = (RTC->DR >> 16) & 0xF;   // bits [19:16], 4 bits wide
+    uint8_t MT = (RTC->DR >> 12) & 0x1;   // bit [12], 1 bit wide
+    uint8_t MU = (RTC->DR >> 8)  & 0xF;   // bits [11:8], 4 bits wide
+    uint8_t DT = (RTC->DR >> 4)  & 0x3;   // bits [5:4], 2 bits wide
+    uint8_t DU = (RTC->DR >> 0)  & 0xF;   // bits [3:0], 4 bits wide
+
+    uint8_t y = YT*10 + YU;
+    uint8_t m = MT*10 + MU;
+    uint8_t d = DT*10 + DU;
 }
