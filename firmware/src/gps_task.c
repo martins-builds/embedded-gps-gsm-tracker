@@ -4,8 +4,8 @@
 
 char gps_rx_buffer1[GPS_BUF_SIZE];
 char gps_rx_buffer2[GPS_BUF_SIZE];
-char *buf_ptr_isr = gps_rx_buffer1;
-char *buf_ptr_task = gps_rx_buffer2;
+char *volatile buf_ptr_isr = gps_rx_buffer1;
+char *volatile buf_ptr_task = gps_rx_buffer2;
 volatile uint8_t gps_line_ready = 0;
 static uint16_t gps_rx_index = 0;
 GPS_Data_t gps_data;
@@ -115,7 +115,7 @@ void USART1_IRQHandler(void){
 }
 void gps_process(void){
     if (gps_line_ready) {
-        gps_parse_gprmc(buf_ptr_isr, &gps_data);
+        gps_parse_gprmc(buf_ptr_task, &gps_data);
         gps_line_ready = 0;
     }
 }
