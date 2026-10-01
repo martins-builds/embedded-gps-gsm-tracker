@@ -16,7 +16,8 @@ typedef struct{
 } GPS_Data_t;
 
 #define GPS_BUF_SIZE 100
-extern char gps_rx_buffer[GPS_BUF_SIZE];
+extern char gps_rx_buffer1[GPS_BUF_SIZE];
+extern char gps_rx_buffer2[GPS_BUF_SIZE];
 extern volatile uint8_t gps_line_ready;
 extern GPS_Data_t gps_data;
 extern SemaphoreHandle_t gps_data_mutex;
