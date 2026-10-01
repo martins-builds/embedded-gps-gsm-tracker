@@ -32,4 +32,8 @@ void rtc_get_date(uint8_t *year, uint8_t *month, uint8_t *day){
     uint8_t y = YT*10 + YU;
     uint8_t m = MT*10 + MU;
     uint8_t d = DT*10 + DU;
+
+    *year = y;
+    *month = m;
+    *day = d;
 }
