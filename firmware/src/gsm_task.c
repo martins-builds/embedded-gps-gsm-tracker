@@ -87,6 +87,8 @@ uint8_t gsm_send_and_wait(const char *cmd, uint8_t max_retries){
     for (uint8_t attempt = 0; attempt < max_retries; attempt++) {
         gsm_send_command(cmd);
 
+        //downlod before ok
+
         if (xSemaphoreTake(gsm_response_sem, pdMS_TO_TICKS(5000)) == pdTRUE) {
             if (strstr(gsm_rx_buffer, "OK") != NULL) {
                 return 1;   // success
