@@ -106,25 +106,28 @@ void gsm_send_location(GPS_Data_t *gps){
     char json_body[100];
 
     uint8_t year, month, day;
-
     rtc_get_date(&year, &month, &day);
 
-    // Build the JSON body with real GPS data
     sprintf(json_body,
         "{\"device_id\":\"MB-TRACK-01\",\"lat\":%.4f,\"lon\":%.4f,\"timestamp\":\"20%02d-%02d-%02dT%02d:%02d:%02dZ\"}",
         gps->latitude, gps->longitude, year, month, day, gps->hours, gps->minutes, gps->seconds);
 
-    // Set the URL (fixed endpoint, no GPS data needed here)
     gsm_send_and_wait("AT+HTTPPARA=\"URL\",\"http://yourserver.com/api/location\"", 3);
 
-    // Tell the module how many bytes of data are coming, and give it time to accept
+    // AT+HTTPDATA needs special handling: SIM800 replies "DOWNLOAD" (ready for body),
+    // not "OK" — gsm_send_and_wait would never match that and would retry wrongly.
     sprintf(body_cmd, "AT+HTTPDATA=%d,10000", (int)strlen(json_body));
-    gsm_send_and_wait(body_cmd, 3);
+    gsm_send_command(body_cmd);
 
-    // Send the actual JSON body (not a normal AT command - raw data)
-    uart3_send_string(json_body);
+    if (xSemaphoreTake(gsm_response_sem, pdMS_TO_TICKS(5000)) == pdTRUE) {
+        if (strstr(gsm_rx_buffer, "DOWNLOAD") != NULL) {
+            uart3_send_string(json_body);
+            // module now sends its own "OK" after receiving the body — wait for that too
+            xSemaphoreTake(gsm_response_sem, pdMS_TO_TICKS(5000));
+        }
+        // else: didn't get DOWNLOAD — body was never sent, HTTPACTION below would fail cleanly
+    }
 
-    // Now trigger the actual POST
     gsm_send_and_wait("AT+HTTPACTION=1", 3);
 }
 void gsm_task(void *pvParameters){
