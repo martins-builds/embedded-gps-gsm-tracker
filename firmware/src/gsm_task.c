@@ -90,7 +90,7 @@ uint8_t gsm_send_and_wait(const char *cmd, uint8_t max_retries){
         //downlod before ok
 
         if (xSemaphoreTake(gsm_response_sem, pdMS_TO_TICKS(5000)) == pdTRUE) {
-            if (strstr(gsm_rx_buffer, "OK") != NULL) {
+            if (strstr(gsm_rx_buffer, "OK") != NULL) { //need download button
                 return 1;   // success
             }
             // response arrived but wasn't OK (likely ERROR) - fall through to retry
